@@ -39,6 +39,7 @@ public class Menus {
         System.out.println("2.- ExhaustivoPoda");
         System.out.println("3.- DyVe");
         System.out.println("4.- DyVeMejorado");
+        System.out.println("0.- Volver al menu principal");
         System.out.println("");
         System.out.println("----------");
         System.out.print("Elige una opcion: ");

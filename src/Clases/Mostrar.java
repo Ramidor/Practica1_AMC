@@ -5,6 +5,7 @@
 package Clases;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,14 +22,15 @@ public class Mostrar {
     PuntosMin pmin = new PuntosMin();
     ArrayList<String> estrategias = new ArrayList<>();
     ArrayList<String> ficheros = new ArrayList<>();
+    Lectura lec=new Lectura();
 
     public Mostrar() {
 
-        ficheros.add("berlin52.tsp");
+     /*   ficheros.add("berlin52.tsp");
         ficheros.add("ch130.tsp");
         ficheros.add("ch150.tsp");
         ficheros.add("d493.tsp");
-        ficheros.add("d657.tsp");
+        ficheros.add("d657.tsp");*/
         estrategias.add("Exhaustivo");
         estrategias.add("ExhaustivoPoda.tsp");
         estrategias.add("DyVe.tsp");
@@ -115,19 +117,21 @@ public class Mostrar {
 
     }
 
-    public void Apartado3(int i,List<Punto> puntos,int estrategia) {
-        p.rellenarPuntos(puntos, i, true);
+    public void Apartado3(int talla,List<Punto> puntos,int estrategia) throws IOException {
+        puntos.clear();
+        p.rellenarPuntos(puntos, talla, true);
         inicio = System.nanoTime();
         if(estrategia==1)
         pmin = a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
         if(estrategia==2)
-        pmin = a.BusquedaPoda(puntos, 0, puntos.size() - 1);
+        pmin = a.BusquedaPoda(puntos, 0, puntos.size()-1);
         if(estrategia==3)
-        pmin = a.DyVe(puntos, 0, puntos.size() - 1);
+        pmin = a.DyVe(puntos, 0, puntos.size()-1);
         if(estrategia==4)
         pmin = a.DyVeMejorado(puntos);
         fin = System.nanoTime();
-        Tejecucion = fin - inicio;
-        System.out.println(i + "          " + Tejecucion / 1_000_000.0);
+        Tejecucion = (long) ((fin - inicio)/ 1000000.0);
+        System.out.println(talla + "          " + Tejecucion );
+        lec.EscribirDat("Exhaustivo",talla,Tejecucion);
     }
 }

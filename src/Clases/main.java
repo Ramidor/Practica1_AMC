@@ -19,7 +19,7 @@ public class main {
         Algoritmos a = new Algoritmos();
         Menus m = new Menus();
         PuntosMin pmin = new PuntosMin();
-        List<Punto> puntos = new ArrayList<>();
+        ArrayList<Punto> puntos = new ArrayList<>();
         ArrayList<String> ficheros = new ArrayList<>();
         Mostrar mo = new Mostrar();
         // ArrayList<Punto> puntosaleatorios = null;
@@ -40,11 +40,12 @@ public class main {
             switch (opcion) {
                 case 1 -> {
 
-                    ficheros.add("berlin52.tsp");
+                    /*ficheros.add("berlin52.tsp");
                     ficheros.add("ch130.tsp");
                     ficheros.add("ch150.tsp");
                     ficheros.add("d493.tsp");
-                    ficheros.add("d657.tsp");
+                    ficheros.add("d657.tsp");*/
+                    ficheros=mo.RellenarArrayFicheros();
                     for (int j = 0; j < ficheros.size(); j++) {
                         System.out.println("");
                         System.out.println("Nombre de fichero: " + ficheros.get(j));
@@ -67,7 +68,9 @@ public class main {
 
                 }
                 case 3 -> {
-                    int opcion3,i=500;
+                    int opcion3 = -1,i;
+                    while(opcion3!=0){
+                        i=500;
                     opcion3 = menu.menu3();
                     Lectura lec1 = new Lectura();
 
@@ -79,16 +82,19 @@ public class main {
                                 mo.Apartado3(i, puntos, 1);
                                 i += 500;
                             }
-                            i=0;
+                            
                             break;
                         case 2:
                             
                             System.out.println("Talla           Tiempo");
                             while (i <= 5000) {
+                                
                                 mo.Apartado3(i, puntos, 2);
                                 i += 500;
+                                
                             }
-                            i=0;
+                            
+                            i=500;
                             break;
                         case 3:
                             
@@ -97,7 +103,7 @@ public class main {
                                 mo.Apartado3(i, puntos, 3);
                                 i += 500;
                             }
-                            i=0;
+                           
                             break;
                         case 4:
                            
@@ -106,10 +112,14 @@ public class main {
                                 mo.Apartado3(i, puntos, 4);
                                 i += 500;
                             }
-                            i=0;
+                            
+                            break;
+                            case 0:
+                            
                             break;
                         default:
                             throw new AssertionError();
+                    }
                     }
                 }
                 case 4 -> {

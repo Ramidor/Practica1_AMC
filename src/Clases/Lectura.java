@@ -76,4 +76,15 @@ public class Lectura {
         
         escribir.close();
     }
+    public void EscribirDat(String file,int talla,long Tejecucion) throws IOException{
+        
+        File archivo = new File(file + ".dat");
+        
+        FileWriter escribir = new FileWriter(archivo, true);
+        
+       escribir.write(talla + "          " + Tejecucion);
+        
+        
+        escribir.close();
+    }
 }

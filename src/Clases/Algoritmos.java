@@ -73,7 +73,7 @@ public class Algoritmos {
     
     public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
         //cont = 0;
-        quicksort(puntos, 0, puntos.size() - 1);
+        quicksort(puntos, 0, fin);
         double dmin = distancia(puntos.get(0), puntos.get(1));
         cont++;
         PuntosMin p = new PuntosMin(puntos.get(0), puntos.get(1));

@@ -11,7 +11,7 @@ import java.util.Scanner;
  * @author raulp
  */
 public class main {
-
+//adri maricon trabaja
     public static void main(String[] args) throws FileNotFoundException, IOException {
         long inicio, fin, Tejecucion;//calculo del tiempo de los algoritmos
         Scanner sc = new Scanner(System.in);
@@ -23,7 +23,8 @@ public class main {
         ArrayList<String> ficheros = new ArrayList<>();
         Mostrar mo = new Mostrar();
         // ArrayList<Punto> puntosaleatorios = null;
-
+        
+        
         Menus menu = new Menus();
         int opcion, talla;
 

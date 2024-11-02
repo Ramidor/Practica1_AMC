@@ -60,7 +60,7 @@ public class Lectura {
         
         File archivo = new File(file + ".tsp");
         
-        FileWriter escribir = new FileWriter(archivo, true);
+        FileWriter escribir = new FileWriter(archivo, false);
         
         escribir.write("NAME: " + file + "\n");
         escribir.write("COMMENT: " + "\n");
@@ -80,7 +80,7 @@ public class Lectura {
         Mostrar mo=new Mostrar();
         File archivo = new File(mo.estrategias.get(estrategia) + ".dat");
         
-        FileWriter escribir = new FileWriter(archivo, true);
+        FileWriter escribir = new FileWriter(archivo, false);
         
        escribir.write(talla + "          " + Tejecucion);
         

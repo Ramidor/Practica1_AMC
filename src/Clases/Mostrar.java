@@ -37,43 +37,7 @@ public class Mostrar {
         estrategias.add("DyVeMejorado.tsp");
     }
 
-    public void MostrarAleatorio(List<Punto> puntos, int talla) {
-        inicio = System.nanoTime();
-        pmin = a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
-        fin = System.nanoTime();
-        Tejecucion = fin - inicio;
-        System.out.println("Nombre de fichero: DataSet(" + talla + ")");
-        System.out.println("Estrategia        Punto1          Punto2          distancia           calculadas          tiempo");
-        System.out.println("Exhaustivo        " + pmin.getA().getId() + "              " + pmin.getB().getId() + "               " + pmin.getDistancia()
-                + "               " + a.getCont() + "                 " + Tejecucion / 1_000_000.0);
-
-        a.setCont();
-        inicio = System.nanoTime();
-        pmin = a.BusquedaPoda(puntos, 0, puntos.size() - 1);
-        fin = System.nanoTime();
-        Tejecucion = fin - inicio;
-
-        System.out.println("ExhaustivoPoda    " + pmin.getA().getId() + "              " + pmin.getB().getId() + "               " + pmin.getDistancia()
-                + "               " + a.getCont() + "                   " + Tejecucion / 1_000_000.0);
-
-        a.setCont();
-        inicio = System.nanoTime();
-        pmin = a.DyVe(puntos, 0, puntos.size() - 1);
-        fin = System.nanoTime();
-        Tejecucion = fin - inicio;
-
-        System.out.println("DivideVenceras    " + pmin.getA().getId() + "              " + pmin.getB().getId() + "               " + pmin.getDistancia()
-                + "               " + a.getCont() + "                  " + Tejecucion / 1_000_000.0);
-        a.setCont();
-        inicio = System.nanoTime();
-        pmin = a.DyVeMejorado(puntos);
-        fin = System.nanoTime();
-        Tejecucion = fin - inicio;
-
-        System.out.println("DyV Mejorado      " + pmin.getA().getId() + "              " + pmin.getB().getId() + "               " + pmin.getDistancia()
-                + "               " + a.getCont() + "                   " + Tejecucion / 1_000_000.0);
-
-    }
+   
 
     public ArrayList RellenarArrayFicheros() {
         ficheros.add("berlin52.tsp");
@@ -91,24 +55,23 @@ public class Mostrar {
         estrategias.add("DyVeMejorado");
     }
 
-    public void MostrarExhaustiva(String file, int tipo) throws FileNotFoundException {
+    public void MostrarExhaustiva(ArrayList<Punto> puntos2, int tipo) throws FileNotFoundException {
 
         a.setCont();
-        Lectura lec1 = new Lectura(file);
-        puntos = lec1.getPuntos();
+        
         inicio = System.nanoTime();
 
         if (tipo == 1) {
-            pmin = a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
+            pmin = a.BusquedaExahustiva(puntos2, 0, puntos2.size() - 1);
         }
         if (tipo == 2) {
-            pmin = a.BusquedaPoda(puntos, 0, puntos.size() - 1);
+            pmin = a.BusquedaPoda(puntos2, 0, puntos2.size() - 1);
         }
         if (tipo == 3) {
-            pmin = a.DyVe(puntos, 0, puntos.size() - 1);
+            pmin = a.DyVe(puntos2, 0, puntos2.size() - 1);
         }
         if (tipo == 4) {
-            pmin = a.DyVeMejorado(puntos);
+            pmin = a.DyVeMejorado(puntos2);
         }
         fin = System.nanoTime();
         Tejecucion = fin - inicio;
@@ -116,7 +79,7 @@ public class Mostrar {
                 + "               " + a.getCont() + "                 " + Tejecucion / 1_000_000.0);
 
     }
-
+     
     public Algoritmos Apartado3(int talla, List<Punto> puntos, int estrategia) throws IOException {
 
         if (estrategia == 1) {
@@ -157,5 +120,9 @@ public class Mostrar {
         lec.EscribirDat(2, i, (long) (Tejecucion3 / 1000000.0));
         lec.EscribirDat(3, i, (long) (Tejecucion4 / 1000000.0));
 
+    }
+
+    void MostrarExhaustiva(ArrayList<Punto> puntos) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

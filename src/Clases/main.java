@@ -35,11 +35,6 @@ public class main {
         //System.out.println(pmin.getA() + "  " + pmin.getB() + "  " + pmin.getDistancia());
         do {
             opcion = menu.menuPrincipal(peorcaso);
-
-            while (opcion < 0 || opcion > 8) {
-                System.out.println("La opcion debe estar entre 0 y 8, intentalo de nuevo");
-                opcion = sc.nextInt();
-            }
             switch (opcion) {
                 case 1 -> {
                     ficheros = mo.RellenarArrayFicheros();
@@ -47,9 +42,11 @@ public class main {
                         System.out.println("");
                         System.out.println("Nombre de fichero: " + ficheros.get(j));
                         System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
+                        Lectura lec=new Lectura(ficheros.get(j));
+                        puntos=lec.getPuntos();
                         for (int i = 1; i < 5; i++) {
-                            mo.MostrarExhaustiva(ficheros.get(j), i);
-
+                            mo.MostrarExhaustiva(puntos, i);
+                            
                         }
                     }
 
@@ -58,10 +55,11 @@ public class main {
                     System.out.println("Introduce la talla deseada: ");
                     talla = sc.nextInt();
                     p.rellenarPuntos(puntos, talla, peorcaso);
-                    lec1.EscribirTSP(puntos, talla + ".tsp");
-
-                    mo.MostrarAleatorio(puntos, talla);
-
+                    System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
+                    for (int i = 1; i < 5; i++) {
+                            mo.MostrarExhaustiva(puntos, i);                           
+                        }
+                  
                 }
                 case 3 -> {
                     int opcion3 = -1, i;
@@ -78,7 +76,7 @@ public class main {
                                     p.rellenarPuntos(puntos, i, peorcaso);
                                     Tejecucion=mo.CompararStrats(i, puntos, 1);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(1, i, Tejecucion);
+                                    lec1.EscribirDat(0, i, Tejecucion);
                                     i += 500;
 
                                 }
@@ -92,7 +90,7 @@ public class main {
                                     p.rellenarPuntos(puntos, i, peorcaso);
                                      Tejecucion=mo.CompararStrats(i, puntos, 2);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(2, i, Tejecucion);
+                                    lec1.EscribirDat(1, i, Tejecucion);
                                     i += 500;
 
                                 }
@@ -107,7 +105,7 @@ public class main {
                                     p.rellenarPuntos(puntos, i, peorcaso);
                                    Tejecucion=mo.CompararStrats(i, puntos, 3);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(3, i, Tejecucion);
+                                    lec1.EscribirDat(2, i, Tejecucion);
                                     i += 500;
 
                                 }
@@ -121,7 +119,7 @@ public class main {
                                     p.rellenarPuntos(puntos, i, peorcaso);
                                     Tejecucion=mo.CompararStrats(i, puntos, 4);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(4, i, Tejecucion);
+                                    lec1.EscribirDat(3, i, Tejecucion);
                                     i += 500;
 
                                 }
@@ -142,6 +140,7 @@ public class main {
                     Algoritmos a2 = new Algoritmos();
                     est1 = menu.menu3();
                     est2 = menu.menu3();
+                    while(est1!=0 ||est2!=0){
 
                     System.out.println("                Exhaustivo          ExhaustivoPoda          Exhaustivo          ExhaustivoPoda");
                     System.out.println("Talla           Tiempo              Tiempo                 Distacias           Distancias");
@@ -155,6 +154,7 @@ public class main {
                         lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0));
                         i += 500;
 
+                    }
                     }
 
                 }
@@ -195,7 +195,7 @@ public class main {
                     System.out.println("Nombre de fichero: " + archivo + ".tsp");
                     System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                     for (int x = 1; x < 5; x++) {
-                        mo.MostrarExhaustiva(archivo + ".tsp", x);
+                        mo.MostrarExhaustiva(puntos, x);
 
                     }
 

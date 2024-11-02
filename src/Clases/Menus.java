@@ -16,9 +16,9 @@ public class Menus {
     boolean peorcaso;
 
     public int menuPrincipal(boolean peorcaso) {
-        if(peorcaso){
+        if (peorcaso) {
             System.out.println("Peor Caso: Si");
-        }else{
+        } else {
             System.out.println("Peor Caso: No");
         }
         System.out.println("1. Comprobar todos los dataset (Ficheros).");//easy
@@ -35,6 +35,10 @@ public class Menus {
 
         Scanner cap = new Scanner(System.in);
         op = cap.nextInt();
+        while (op < 0 || op > 8) {
+            System.out.println("La opcion debe estar entre 0 y 8, intentalo de nuevo");
+            op = cap.nextInt();
+        }
 
         return op;
     }
@@ -53,11 +57,11 @@ public class Menus {
         System.out.print("Elige una opcion: ");
         Scanner cap = new Scanner(System.in);
         op = cap.nextInt();
-        while (op != 1 && op != 2 && op != 3 && op != 4 && op != 0) {
+        while (op < 0 || op > 4) {
             System.out.print("Elige una opcion: ");
             op = cap.nextInt();
         }
-        
-    return op;
+
+        return op;
     }
 }

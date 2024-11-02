@@ -14,27 +14,27 @@ public class main {
 //adri maricon trabaja
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
+        int opcion, talla;
         long inicio, fin, Tejecucion;//calculo del tiempo de los algoritmos
+        boolean peorcaso = false;
         Scanner sc = new Scanner(System.in);
         Punto p = new Punto();
+        PuntosMin pmin = new PuntosMin();
         Algoritmos a = new Algoritmos();
         Menus m = new Menus();
-        PuntosMin pmin = new PuntosMin();
         ArrayList<Punto> puntos = new ArrayList<>();
         ArrayList<String> ficheros = new ArrayList<>();
         Mostrar mo = new Mostrar();
         Lectura lec1 = new Lectura();
-        boolean peorcaso=false;
-        // ArrayList<Punto> puntosaleatorios = null;
 
+        // ArrayList<Punto> puntosaleatorios = null;
         Menus menu = new Menus();
-        int opcion, talla;
 
         // pmin = a.DyVe(puntos, 0, puntos.size()-1);
         //1 System.out.println(a.getCont());
         //System.out.println(pmin.getA() + "  " + pmin.getB() + "  " + pmin.getDistancia());
         do {
-            opcion = menu.menuPrincipal();
+            opcion = menu.menuPrincipal(peorcaso);
 
             while (opcion < 0 || opcion > 8) {
                 System.out.println("La opcion debe estar entre 0 y 8, intentalo de nuevo");
@@ -42,12 +42,6 @@ public class main {
             }
             switch (opcion) {
                 case 1 -> {
-
-                    /*ficheros.add("berlin52.tsp");
-                    ficheros.add("ch130.tsp");
-                    ficheros.add("ch150.tsp");
-                    ficheros.add("d493.tsp");
-                    ficheros.add("d657.tsp");*/
                     ficheros = mo.RellenarArrayFicheros();
                     for (int j = 0; j < ficheros.size(); j++) {
                         System.out.println("");
@@ -183,39 +177,46 @@ public class main {
 
                 }
                 case 5 -> {
-                    int i=500;
-                   
-                    long Tejecucion1, Tejecucion2,Tejecucion3, Tejecucion4;
+                    int i = 500;
                     System.out.println("                Exhaustivo          ExhaustivoPoda         DyVe                DyVe Mejorado");
                     System.out.println("Talla           Tiempo              Tiempo                 Tiempo              Tiempo");
-                    
-                     while (i <= 5000) {
+                    while (i <= 5000) {
                         puntos.clear();
                         p.rellenarPuntos(puntos, i, peorcaso);
-                        Tejecucion1=mo.aisdh(i, puntos, 1);
-                        Tejecucion2=mo.aisdh(i, puntos, 2);
-                        Tejecucion3=mo.aisdh(i, puntos, 3);
-                        Tejecucion4=mo.aisdh(i, puntos, 4);                                            
-                        System.out.printf("%d              %.9f          %.9f       %.9f        %.9f%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, Tejecucion3 / 1000000.0, Tejecucion4 / 1000000.0);
-                        lec1.EscribirDat(0, i, (long) (Tejecucion1 / 1000000.0));
-                        lec1.EscribirDat(1, i, (long) (Tejecucion2 / 1000000.0));
-                        lec1.EscribirDat(2, i, (long) (Tejecucion3 / 1000000.0));
-                        lec1.EscribirDat(3, i, (long) (Tejecucion4 / 1000000.0));
+                        mo.TodasStrat(peorcaso, puntos, i);
                         i += 500;
-
                     }
-
                 }
                 case 6 -> {
-                    if(peorcaso){
-                        peorcaso=false;
-                    }else{
-                        peorcaso=true;
+                    if (peorcaso) {
+                        peorcaso = false;
+                    } else {
+                        peorcaso = true;
                     }
                 }
                 case 7 -> {
+
+                    System.out.println("Introduce la talla del tsp");
+                    talla = sc.nextInt();
+                    puntos.clear();
+                    p.rellenarPuntos(puntos, talla, peorcaso);
+
+                    lec1.EscribirTSP(puntos, "Dataset(" + talla + ")");
                 }
                 case 8 -> {
+                    String archivo;
+                    int i = 500;
+                    System.out.println("Introduce el archivo: ");
+                    archivo = sc.next();
+                    Lectura lecturatsp = new Lectura(archivo + ".tsp");
+                    puntos = lecturatsp.getPuntos();
+                    System.out.println("Nombre de fichero: " + archivo + ".tsp");
+                    System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
+                    for (int x = 1; x < 5; x++) {
+                        mo.MostrarExhaustiva(archivo + ".tsp", x);
+
+                    }
+
                 }
                 case 0 -> {
                 }

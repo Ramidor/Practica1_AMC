@@ -85,4 +85,8 @@ public class Punto {
     public String toString() {
         return "Punto{Id= " + id + ", x=" + x + ", y=" + y + '}';
     }
+
+    void clear() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 }

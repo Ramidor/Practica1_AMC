@@ -10,7 +10,7 @@ import java.util.*;
 public class Lectura {
     BufferedReader reader;
     BufferedWriter writer;
-    List<Punto> puntos;
+    ArrayList<Punto> puntos;
     
     public Lectura(String file) throws FileNotFoundException {
         reader = new BufferedReader(new FileReader(file));
@@ -28,7 +28,7 @@ public class Lectura {
     }
 
    
-    public List<Punto> getPuntos() {
+    public ArrayList<Punto> getPuntos() {
         return puntos;
     }
     

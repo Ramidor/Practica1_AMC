@@ -13,9 +13,14 @@ import java.util.Scanner;
 public class Menus {
 
     int op;
+    boolean peorcaso;
 
-    public int menuPrincipal() {
-
+    public int menuPrincipal(boolean peorcaso) {
+        if(peorcaso){
+            System.out.println("Peor Caso: Si");
+        }else{
+            System.out.println("Peor Caso: No");
+        }
         System.out.println("1. Comprobar todos los dataset (Ficheros).");//easy
         System.out.println("2. Comprobar todas las estrategias.");
         System.out.println("3. Estudiar una estrategia.");

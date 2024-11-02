@@ -76,9 +76,9 @@ public class Lectura {
         
         escribir.close();
     }
-    public void EscribirDat(String file,int talla,long Tejecucion) throws IOException{
-        
-        File archivo = new File(file + ".dat");
+    public void EscribirDat(int estrategia,int talla,long Tejecucion) throws IOException{
+        Mostrar mo=new Mostrar();
+        File archivo = new File(mo.estrategias.get(estrategia) + ".dat");
         
         FileWriter escribir = new FileWriter(archivo, true);
         

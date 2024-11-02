@@ -11,9 +11,11 @@ import java.util.Scanner;
  * @author raulp
  */
 public class Menus {
+
     int op;
+
     public int menuPrincipal() {
-        
+
         System.out.println("1. Comprobar todos los dataset (Ficheros).");//easy
         System.out.println("2. Comprobar todas las estrategias.");
         System.out.println("3. Estudiar una estrategia.");
@@ -31,8 +33,9 @@ public class Menus {
 
         return op;
     }
+
     public int menu3() {
-        
+
         System.out.println("*** Estrategia a estudiar para el caso medio***");
         System.out.println("");
         System.out.println("1.- Exhaustivo");
@@ -43,9 +46,13 @@ public class Menus {
         System.out.println("");
         System.out.println("----------");
         System.out.print("Elige una opcion: ");
-         Scanner cap = new Scanner(System.in);
+        Scanner cap = new Scanner(System.in);
         op = cap.nextInt();
-
-        return op;
+        while (op != 1 && op != 2 && op != 3 && op != 4 && op != 0) {
+            System.out.print("Elige una opcion: ");
+            op = cap.nextInt();
+        }
+        
+    return op;
     }
 }

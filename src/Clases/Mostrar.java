@@ -22,11 +22,11 @@ public class Mostrar {
     PuntosMin pmin = new PuntosMin();
     ArrayList<String> estrategias = new ArrayList<>();
     ArrayList<String> ficheros = new ArrayList<>();
-    Lectura lec=new Lectura();
+    Lectura lec = new Lectura();
 
     public Mostrar() {
 
-     /*   ficheros.add("berlin52.tsp");
+        /*   ficheros.add("berlin52.tsp");
         ficheros.add("ch130.tsp");
         ficheros.add("ch150.tsp");
         ficheros.add("d493.tsp");
@@ -117,21 +117,28 @@ public class Mostrar {
 
     }
 
-    public void Apartado3(int talla,List<Punto> puntos,int estrategia) throws IOException {
-        puntos.clear();
-        p.rellenarPuntos(puntos, talla, true);
+    public Algoritmos Apartado3(int talla, List<Punto> puntos, int estrategia) throws IOException {
+
+        if (estrategia == 1) {
+            pmin = a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
+        } else if (estrategia == 2) {
+            pmin = a.BusquedaPoda(puntos, 0, puntos.size() - 1);
+        } else if (estrategia == 3) {
+            pmin = a.DyVe(puntos, 0, puntos.size() - 1);
+        } else if (estrategia == 4) {
+            pmin = a.DyVeMejorado(puntos);
+        }
+
+        return a;
+    }
+
+    public long aisdh(int talla, List<Punto> puntos, int estrategia) throws IOException {
+
         inicio = System.nanoTime();
-        if(estrategia==1)
-        pmin = a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
-        if(estrategia==2)
-        pmin = a.BusquedaPoda(puntos, 0, puntos.size()-1);
-        if(estrategia==3)
-        pmin = a.DyVe(puntos, 0, puntos.size()-1);
-        if(estrategia==4)
-        pmin = a.DyVeMejorado(puntos);
+        Apartado3(talla, puntos, estrategia);
         fin = System.nanoTime();
-        Tejecucion = (long) ((fin - inicio)/ 1000000.0);
-        System.out.println(talla + "          " + Tejecucion );
-        lec.EscribirDat("Exhaustivo",talla,Tejecucion);
+        Tejecucion = fin - inicio;
+        return Tejecucion;
+
     }
 }

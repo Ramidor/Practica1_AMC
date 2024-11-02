@@ -76,10 +76,7 @@ public class main {
                                 while (i <= 5000) {
                                     puntos.clear();
                                     p.rellenarPuntos(puntos, i, peorcaso);
-                                    inicio = System.nanoTime();
-                                    mo.Apartado3(i, puntos, 1);
-                                    fin = System.nanoTime();
-                                    Tejecucion = fin - inicio;
+                                    Tejecucion=mo.CompararStrats(i, puntos, 1);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
                                     lec1.EscribirDat(1, i, Tejecucion);
                                     i += 500;
@@ -93,10 +90,7 @@ public class main {
                                 while (i <= 5000) {
                                     puntos.clear();
                                     p.rellenarPuntos(puntos, i, peorcaso);
-                                    inicio = System.nanoTime();
-                                    mo.Apartado3(i, puntos, 2);
-                                    fin = System.nanoTime();
-                                    Tejecucion = fin - inicio;
+                                     Tejecucion=mo.CompararStrats(i, puntos, 2);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
                                     lec1.EscribirDat(2, i, Tejecucion);
                                     i += 500;
@@ -111,10 +105,7 @@ public class main {
                                 while (i <= 5000) {
                                     puntos.clear();
                                     p.rellenarPuntos(puntos, i, peorcaso);
-                                    inicio = System.nanoTime();
-                                    mo.Apartado3(i, puntos, 3);
-                                    fin = System.nanoTime();
-                                    Tejecucion = fin - inicio;
+                                   Tejecucion=mo.CompararStrats(i, puntos, 3);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
                                     lec1.EscribirDat(3, i, Tejecucion);
                                     i += 500;
@@ -128,10 +119,7 @@ public class main {
                                 while (i <= 5000) {
                                     puntos.clear();
                                     p.rellenarPuntos(puntos, i, peorcaso);
-                                    inicio = System.nanoTime();
-                                    mo.Apartado3(i, puntos, 4);
-                                    fin = System.nanoTime();
-                                    Tejecucion = fin - inicio;
+                                    Tejecucion=mo.CompararStrats(i, puntos, 4);
                                     System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
                                     lec1.EscribirDat(4, i, Tejecucion);
                                     i += 500;

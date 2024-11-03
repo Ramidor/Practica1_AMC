@@ -31,6 +31,7 @@ public class main {
         Menus menu = new Menus();
 
         do {
+            
             opcion = menu.menuPrincipal(peorcaso);
             switch (opcion) {
                 case 1 -> {
@@ -39,11 +40,11 @@ public class main {
                         System.out.println("");
                         System.out.println("Nombre de fichero: " + ficheros.get(j));
                         System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
-                        Lectura lec=new Lectura(ficheros.get(j));
-                        puntos=lec.getPuntos();
+                        Lectura lec = new Lectura(ficheros.get(j));
+                        puntos = lec.getPuntos();
                         for (int i = 1; i < 5; i++) {
                             mo.MostrarExhaustiva(puntos, i);
-                            
+
                         }
                     }
 
@@ -54,9 +55,9 @@ public class main {
                     p.rellenarPuntos(puntos, talla, peorcaso);
                     System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                     for (int i = 1; i < 5; i++) {
-                            mo.MostrarExhaustiva(puntos, i);                           
-                        }
-                  
+                        mo.MostrarExhaustiva(puntos, i);
+                    }
+
                 }
                 case 3 -> {
                     int opcion3 = -1, i;
@@ -66,16 +67,16 @@ public class main {
 
                         switch (opcion3) {
                             case 1:
-                                mo.Caso3(puntos, peorcaso, 1);
+                                mo.Caso3(puntos, peorcaso, 0);
                                 break;
                             case 2:
-                                mo.Caso3(puntos, peorcaso, 2);
+                                mo.Caso3(puntos, peorcaso, 1);
                                 break;
                             case 3:
-                                mo.Caso3(puntos, peorcaso, 3);
+                                mo.Caso3(puntos, peorcaso, 2);
                                 break;
                             case 4:
-                                mo.Caso3(puntos, peorcaso, 4);
+                                mo.Caso3(puntos, peorcaso, 3);
                                 break;
                             case 0:
 
@@ -86,29 +87,31 @@ public class main {
                     }
                 }
                 case 4 -> {
-                    int est1, est2, i = 500;
+                    int est1=-1, est2=-1, i = 500;
                     long Tejecucion1, Tejecucion2;
                     Algoritmos a1 = new Algoritmos();
                     Algoritmos a2 = new Algoritmos();
-                    est1 = menu.menu3();
-                    est2 = menu.menu3();
-                    while(est1!=0 || est2!=0){
+                    while (est1 != 0 && est2 != 0) {
+                        est1 = menu.menu3();
+                        est2 = menu.menu3();
 
-                    System.out.println("                Exhaustivo          ExhaustivoPoda          Exhaustivo          ExhaustivoPoda");
-                    System.out.println("Talla           Tiempo              Tiempo                 Distacias           Distancias");
-                    while (i <= 5000) {
-                        puntos.clear();
-                        p.rellenarPuntos(puntos, i, peorcaso);
-                        Tejecucion1=mo.CompararStrats(i, puntos, est1);
-                        Tejecucion2=mo.CompararStrats(i, puntos, est2);
-                        System.out.printf("%d              %.9f          %.9f       %d      %d%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, a1.getCont(), a2.getCont());
-                        lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0));
-                        lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0));
-                        i += 500;
+                        if (est1 != 0 || est2 != 0) {
 
+                            System.out.println("                Exhaustivo          ExhaustivoPoda          Exhaustivo          ExhaustivoPoda");
+                            System.out.println("Talla           Tiempo              Tiempo                 Distacias           Distancias");
+                            while (i <= 5000) {
+                                puntos.clear();
+                                p.rellenarPuntos(puntos, i, peorcaso);
+                                Tejecucion1 = mo.CompararStrats(i, puntos, est1);
+                                Tejecucion2 = mo.CompararStrats(i, puntos, est2);
+                                System.out.printf("%d              %.9f          %.9f          %d           %d%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, a1.getCont(), a2.getCont());
+                                lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0));
+                                lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0));
+                                i += 500;
+
+                            }
+                        }
                     }
-                    }
-
                 }
                 case 5 -> {
                     int i = 500;

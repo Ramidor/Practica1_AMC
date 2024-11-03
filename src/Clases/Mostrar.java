@@ -112,10 +112,10 @@ public class Mostrar {
         Tejecucion3 = CompararStrats(i, puntos, 3);
         Tejecucion4 = CompararStrats(i, puntos, 4);
         System.out.printf("%d              %.9f          %.9f       %.9f        %.9f%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, Tejecucion3 / 1000000.0, Tejecucion4 / 1000000.0);
-        lec.EscribirDat(0, i, (long) (Tejecucion1 / 1000000.0));
-        lec.EscribirDat(1, i, (long) (Tejecucion2 / 1000000.0));
-        lec.EscribirDat(2, i, (long) (Tejecucion3 / 1000000.0));
-        lec.EscribirDat(3, i, (long) (Tejecucion4 / 1000000.0));
+        lec.EscribirDat(1, i, (long) (Tejecucion1 / 1000000.0));
+        lec.EscribirDat(2, i, (long) (Tejecucion2 / 1000000.0));
+        lec.EscribirDat(3, i, (long) (Tejecucion3 / 1000000.0));
+        lec.EscribirDat(4, i, (long) (Tejecucion4 / 1000000.0));
 
     }
 
@@ -123,8 +123,8 @@ public class Mostrar {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    public void Caso3(List<Punto> puntos ,boolean peorcaso, int estrategia) throws IOException {
-        int i=500;
+    public void Caso3(List<Punto> puntos, boolean peorcaso, int estrategia) throws IOException {
+        int i = 500;
         puntos.clear();
         System.out.println("Talla           Tiempo");
         while (i <= 5000) {

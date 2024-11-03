@@ -37,8 +37,6 @@ public class Mostrar {
         estrategias.add("DyVeMejorado.tsp");
     }
 
-   
-
     public ArrayList RellenarArrayFicheros() {
         ficheros.add("berlin52.tsp");
         ficheros.add("ch130.tsp");
@@ -58,7 +56,7 @@ public class Mostrar {
     public void MostrarExhaustiva(ArrayList<Punto> puntos2, int tipo) throws FileNotFoundException {
 
         a.setCont();
-        
+
         inicio = System.nanoTime();
 
         if (tipo == 1) {
@@ -79,7 +77,7 @@ public class Mostrar {
                 + "               " + a.getCont() + "                 " + Tejecucion / 1_000_000.0);
 
     }
-     
+
     public Algoritmos Apartado3(int talla, List<Punto> puntos, int estrategia) throws IOException {
 
         if (estrategia == 1) {
@@ -105,8 +103,7 @@ public class Mostrar {
 
     }
 
-    public void TodasStrat(boolean peorcaso, List<Punto> puntos,int i) throws IOException {
-        
+    public void TodasStrat(boolean peorcaso, List<Punto> puntos, int i) throws IOException {
 
         long Tejecucion1, Tejecucion2, Tejecucion3, Tejecucion4;
 
@@ -124,5 +121,19 @@ public class Mostrar {
 
     void MostrarExhaustiva(ArrayList<Punto> puntos) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void Caso3(List<Punto> puntos ,boolean peorcaso, int estrategia) throws IOException {
+        int i=500;
+        puntos.clear();
+        System.out.println("Talla           Tiempo");
+        while (i <= 5000) {
+            puntos.clear();
+            p.rellenarPuntos(puntos, i, peorcaso);
+            Tejecucion = CompararStrats(i, puntos, estrategia);
+            System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
+            lec.EscribirDat(0, i, Tejecucion);
+            i += 500;
+        }
     }
 }

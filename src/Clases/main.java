@@ -30,9 +30,6 @@ public class main {
         // ArrayList<Punto> puntosaleatorios = null;
         Menus menu = new Menus();
 
-        // pmin = a.DyVe(puntos, 0, puntos.size()-1);
-        //1 System.out.println(a.getCont());
-        //System.out.println(pmin.getA() + "  " + pmin.getB() + "  " + pmin.getDistancia());
         do {
             opcion = menu.menuPrincipal(peorcaso);
             switch (opcion) {
@@ -69,61 +66,16 @@ public class main {
 
                         switch (opcion3) {
                             case 1:
-
-                                System.out.println("Talla           Tiempo");
-                                while (i <= 5000) {
-                                    puntos.clear();
-                                    p.rellenarPuntos(puntos, i, peorcaso);
-                                    Tejecucion=mo.CompararStrats(i, puntos, 1);
-                                    System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(0, i, Tejecucion);
-                                    i += 500;
-
-                                }
-
+                                mo.Caso3(puntos, peorcaso, 1);
                                 break;
                             case 2:
-
-                                System.out.println("Talla           Tiempo");
-                                while (i <= 5000) {
-                                    puntos.clear();
-                                    p.rellenarPuntos(puntos, i, peorcaso);
-                                     Tejecucion=mo.CompararStrats(i, puntos, 2);
-                                    System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(1, i, Tejecucion);
-                                    i += 500;
-
-                                }
-
-                                i = 500;
+                                mo.Caso3(puntos, peorcaso, 2);
                                 break;
                             case 3:
-
-                                System.out.println("Talla           Tiempo");
-                                while (i <= 5000) {
-                                    puntos.clear();
-                                    p.rellenarPuntos(puntos, i, peorcaso);
-                                   Tejecucion=mo.CompararStrats(i, puntos, 3);
-                                    System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(2, i, Tejecucion);
-                                    i += 500;
-
-                                }
-
+                                mo.Caso3(puntos, peorcaso, 3);
                                 break;
                             case 4:
-
-                                System.out.println("Talla           Tiempo");
-                                while (i <= 5000) {
-                                    puntos.clear();
-                                    p.rellenarPuntos(puntos, i, peorcaso);
-                                    Tejecucion=mo.CompararStrats(i, puntos, 4);
-                                    System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-                                    lec1.EscribirDat(3, i, Tejecucion);
-                                    i += 500;
-
-                                }
-
+                                mo.Caso3(puntos, peorcaso, 4);
                                 break;
                             case 0:
 
@@ -140,7 +92,7 @@ public class main {
                     Algoritmos a2 = new Algoritmos();
                     est1 = menu.menu3();
                     est2 = menu.menu3();
-                    while(est1!=0 ||est2!=0){
+                    while(est1!=0 || est2!=0){
 
                     System.out.println("                Exhaustivo          ExhaustivoPoda          Exhaustivo          ExhaustivoPoda");
                     System.out.println("Talla           Tiempo              Tiempo                 Distacias           Distancias");

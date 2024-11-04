@@ -67,16 +67,16 @@ public class main {
 
                         switch (opcion3) {
                             case 1:
-                                mo.Caso3(puntos, peorcaso, 0);
-                                break;
-                            case 2:
                                 mo.Caso3(puntos, peorcaso, 1);
                                 break;
-                            case 3:
+                            case 2:
                                 mo.Caso3(puntos, peorcaso, 2);
                                 break;
-                            case 4:
+                            case 3:
                                 mo.Caso3(puntos, peorcaso, 3);
+                                break;
+                            case 4:
+                                mo.Caso3(puntos, peorcaso, 4);
                                 break;
                             case 0:
 

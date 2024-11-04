@@ -66,7 +66,7 @@ public class Mostrar {
             pmin = a.BusquedaPoda(puntos2, 0, puntos2.size() - 1);
         }
         if (tipo == 3) {
-            pmin = a.DyVe(puntos2, 0, puntos2.size() - 1);
+            pmin = a.DyVe(puntos2);
         }
         if (tipo == 4) {
             pmin = a.DyVeMejorado(puntos2);
@@ -85,7 +85,7 @@ public class Mostrar {
         } else if (estrategia == 2) {
             pmin = a.BusquedaPoda(puntos, 0, puntos.size() - 1);
         } else if (estrategia == 3) {
-            pmin = a.DyVe(puntos, 0, puntos.size() - 1);
+            pmin = a.DyVe(puntos);
         } else if (estrategia == 4) {
             pmin = a.DyVeMejorado(puntos);
         }
@@ -132,7 +132,7 @@ public class Mostrar {
             p.rellenarPuntos(puntos, i, peorcaso);
             Tejecucion = CompararStrats(i, puntos, estrategia);
             System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-            lec.EscribirDat(0, i, Tejecucion);
+            lec.EscribirDat(estrategia, i, Tejecucion);
             i += 500;
         }
     }

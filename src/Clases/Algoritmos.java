@@ -1,5 +1,6 @@
 package Clases;
 
+import java.awt.BorderLayout;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -70,30 +71,9 @@ public class Algoritmos {
         return p;
     }
 
-    
-    public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
-        //cont = 0;
-        quicksort(puntos, 0, fin);
-        double dmin = distancia(puntos.get(0), puntos.get(1));
-        cont++;
-        PuntosMin p = new PuntosMin(puntos.get(0), puntos.get(1));
-        for (int i = inicio; i < fin; i++) {
-            int j = i + 1;
-            while ((j < fin) && ((puntos.get(j).getX() - puntos.get(i).getX()) < dmin)) {
-                double d = distancia(puntos.get(i), puntos.get(j));
-                cont++;
-                if (d < dmin) {
-                    dmin = d;
-                    p.punt(puntos.get(i), puntos.get(j));
-                }
-                j++;
-            }
-        }
-        return p;
-    }
     //MODIFICACION EN CLASE
-    /*public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
-        quicksort(puntos, 0, puntos.size() - 1); //ordenamos el fichero por la cordenada x
+    public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
+        quicksort(puntos, inicio, fin); //ordenamos el fichero por la cordenada x
         double dmin = distancia(puntos.get(0), puntos.get(1));
         cont++;
         PuntosMin p = new PuntosMin(puntos.get(0), puntos.get(1));
@@ -112,11 +92,15 @@ public class Algoritmos {
             }
         }
         return p;
-    }*/
+    }
+
+    public static PuntosMin DyVe(List<Punto> puntos) {
+        quicksort(puntos, 0, puntos.size() - 1);
+        return DyVe(puntos, 0, puntos.size() - 1);
+    }
 
     //i de izq y d de derch
     public static PuntosMin DyVe(List<Punto> puntos, int i, int d) {
-        quicksort(puntos, 0, puntos.size() - 1);
         int n = d - i + 1;
 
         // Caso base: Si el número de puntos es menor a 3, usar el método de búsqueda directa.
@@ -154,8 +138,6 @@ public class Algoritmos {
         // Ordenar los puntos de la franja por coordenada Y para facilitar comparaciones verticales
         //franja.sort(Comparator.comparingDouble(Punto::getY));
         // Comprobar las distancias entre los puntos dentro de la franja central
-        
-        
         for (int c = 0; c < franja.size(); c++) {
             // Comparar solo con los próximos puntos en Y, ya que están ordenados
             for (int e = c + 1; e < franja.size() && (franja.get(e).getX() - franja.get(c).getX()) < dmin; e++) {
@@ -171,7 +153,6 @@ public class Algoritmos {
         return p; // Retornar el resultado con la menor distancia encontrada
     }
 
-
     public PuntosMin DyVeMejorado(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1);
         return DyVeMejorado(puntos, 0, puntos.size() - 1);
@@ -180,11 +161,11 @@ public class Algoritmos {
     public PuntosMin DyVeMejorado(List<Punto> puntos, int i, int d) {
         int n = (d - i + 1);
 
-        if (n <= 3) {
+        if (n >= 3) {
             PuntosMin izq = new PuntosMin(), der = new PuntosMin();
             int mitad = (i + d) / 2;
-            izq = DyVe(puntos, i, mitad);
-            der = DyVe(puntos, mitad + 1, d);
+            izq = DyVeMejorado(puntos, i, mitad);
+            der = DyVeMejorado(puntos, mitad + 1, d);
 
             double di = izq.getDistancia();
             double dd = der.getDistancia();
@@ -197,32 +178,20 @@ public class Algoritmos {
                 p = der;
             }
 
-            int a, b;
-            for (a = mitad; a >= 1; a--) {
-                if ((puntos.get(mitad + 1).getX() - puntos.get(a).getX()) > dmin) {
-                    break;
-                }
+        List<Punto> puntosAux = new ArrayList<>();
+        for (int k = i; k <= d; k++) {
+            if (Math.abs(puntos.get(k).getX() - puntos.get(mitad).getX()) < dmin) {
+                puntosAux.add(puntos.get(k));
             }
+        }
 
-            for (b = mitad + 1; b <= d; b++) {
-                if ((puntos.get(b).getX() - puntos.get(mitad).getX()) > dmin) {
-                    break;
-                }
-            }
-            List<Punto> puntosAux = null;
-            int j, k;
-            for (j = a + 1, k = 0; j <= b - 1; j++, k++) {
-                puntosAux.add(puntos.get(j));
-            }
-
-            if (puntosAux.size() > 2) {
+            if (puntosAux.size() >= 2) {
                 quicksorty(puntosAux, 0, puntosAux.size() - 1);
-            }
-
-            PuntosMin franja = BusquedaExahustiva11(puntosAux, 0, k - 1);
+                PuntosMin franja = BusquedaExahustiva11(puntosAux, 0, puntosAux.size()-1);
 
             if (franja.getDistancia() < p.getDistancia()) {
                 p = franja;
+            }
             }
 
         } else {
@@ -231,59 +200,8 @@ public class Algoritmos {
 
         return p;
     }
-
-    /*public PuntosMin DyVmejorado(List<Punto> puntos, int i, int d) {
-        quicksort(puntos, i, d);
-        if ((d - i - 1) < 3) {
-            int mitad = (i + d) / 2;
-            PuntosMin izq = DyVmejorado(puntos, i, mitad);
-            PuntosMin der = DyVmejorado(puntos, mitad + 1, d);
-
-            PuntosMin minpar = izq;
-
-            if (der.getDistancia() < minpar.getDistancia()) {
-                minpar = der;
-            }
-            //cont++;
-            //izq T[i,m]
-            int a = mitad;
-            while ((a >= i) && ((puntos.get(mitad + 1).getX() - puntos.get(a).getX()) < minpar.getDistancia())) {
-                a--;
-                cont++;
-            }
-            //Franja izq T[a+1,m]
-            //dcha T[m+1,d]
-            int b = mitad + 1;
-            while ((b <= d) && (puntos.get(b).getX() - puntos.get(mitad).getX()) < minpar.getDistancia()) {
-                b++;
-                //cont++;
-            }
     
     
-    
-            //Franja dcha T[m+1,b-1]
-            ArrayList<Punto> puntosAux = new ArrayList<Punto>();
-            int j, k;
-            for (j = a + 1, k = 0; j <= b - 1; j++, k++) {
-                puntosAux.add(puntos.get(j));
-            }
-            if (puntosAux.size() > 2) {
-                quicksorty(puntosAux, 0, puntosAux.size() - 1);
-            }
-
-            PuntosMin franja = BusquedaExahustiva11(puntosAux, 0, k - 1);
-
-            if (franja.getDistancia() < minpar.getDistancia()) {
-                minpar = franja;
-            }
-            //cont++;
-
-            return minpar;
-        } else {
-            return BusquedaExahustiva(puntos, i, d);
-
-        }
-    }*/
     public static void quicksort(List<Punto> puntos, int izq, int der) {
 
         // tomamos primer elemento como pivote
@@ -342,10 +260,10 @@ public class Algoritmos {
         puntos.set(j, pivote);      // los menores a su izquierda y los mayores a su derecha
 
         if (izq < j - 1) {
-            quicksort(puntos, izq, j - 1);          // ordenamos subarray izquierdo
+            quicksorty(puntos, izq, j - 1);          // ordenamos subarray izquierdo
         }
         if (j + 1 < der) {
-            quicksort(puntos, j + 1, der);          // ordenamos subarray derecho
+            quicksorty(puntos, j + 1, der);          // ordenamos subarray derecho
         }
     }
 

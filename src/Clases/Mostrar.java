@@ -25,24 +25,23 @@ public class Mostrar {
     Lectura lec = new Lectura();
 
     public Mostrar() {
-
-        /*   ficheros.add("berlin52.tsp");
-        ficheros.add("ch130.tsp");
-        ficheros.add("ch150.tsp");
-        ficheros.add("d493.tsp");
-        ficheros.add("d657.tsp");*/
-        estrategias.add("Exhaustivo");
-        estrategias.add("ExhaustivoPoda.tsp");
-        estrategias.add("DyVe.tsp");
-        estrategias.add("DyVeMejorado.tsp");
+        RellenarArrayFicheros();
+        RellenarArrayEstrategias();
     }
 
-    public ArrayList RellenarArrayFicheros() {
+    public void RellenarArrayFicheros() {
         ficheros.add("berlin52.tsp");
         ficheros.add("ch130.tsp");
         ficheros.add("ch150.tsp");
         ficheros.add("d493.tsp");
         ficheros.add("d657.tsp");
+    }
+
+    public ArrayList<String> getEstrategias() {
+        return estrategias;
+    }
+
+    public ArrayList<String> getFicheros() {
         return ficheros;
     }
 
@@ -74,29 +73,27 @@ public class Mostrar {
         fin = System.nanoTime();
         Tejecucion = fin - inicio;
         System.out.println(estrategias.get(tipo - 1) + "        " + pmin.getA().getId() + "              " + pmin.getB().getId() + "               " + pmin.getDistancia()
-                + "               " + a.getCont() + "                 " + Tejecucion / 1_000_000.0);
+                + "               " + a.getCont() + "                 " + Tejecucion / 1000000.0);
 
     }
 
-    public Algoritmos Apartado3(int talla, List<Punto> puntos, int estrategia) throws IOException {
+    public void Apartado3(List<Punto> puntos, int estrategia) throws IOException {
 
         if (estrategia == 1) {
-            pmin = a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
+            a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
         } else if (estrategia == 2) {
-            pmin = a.BusquedaPoda(puntos, 0, puntos.size() - 1);
+            a.BusquedaPoda(puntos, 0, puntos.size() - 1);
         } else if (estrategia == 3) {
-            pmin = a.DyVe(puntos);
+            a.DyVe(puntos);
         } else if (estrategia == 4) {
-            pmin = a.DyVeMejorado(puntos);
+            a.DyVeMejorado(puntos);
         }
-
-        return a;
     }
 
-    public long CompararStrats(int talla, List<Punto> puntos, int estrategia) throws IOException {
+    public long CompararStrats(List<Punto> puntos, int estrategia) throws IOException {
 
         inicio = System.nanoTime();
-        Apartado3(talla, puntos, estrategia);
+        Apartado3(puntos, estrategia);
         fin = System.nanoTime();
         Tejecucion = fin - inicio;
         return Tejecucion;
@@ -107,10 +104,10 @@ public class Mostrar {
 
         long Tejecucion1, Tejecucion2, Tejecucion3, Tejecucion4;
 
-        Tejecucion1 = CompararStrats(i, puntos, 1);
-        Tejecucion2 = CompararStrats(i, puntos, 2);
-        Tejecucion3 = CompararStrats(i, puntos, 3);
-        Tejecucion4 = CompararStrats(i, puntos, 4);
+        Tejecucion1 = CompararStrats(puntos, 1);
+        Tejecucion2 = CompararStrats(puntos, 2);
+        Tejecucion3 = CompararStrats(puntos, 3);
+        Tejecucion4 = CompararStrats(puntos, 4);
         System.out.printf("%d              %.9f          %.9f       %.9f        %.9f%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, Tejecucion3 / 1000000.0, Tejecucion4 / 1000000.0);
         lec.EscribirDat(1, i, (long) (Tejecucion1 / 1000000.0));
         lec.EscribirDat(2, i, (long) (Tejecucion2 / 1000000.0));
@@ -119,18 +116,14 @@ public class Mostrar {
 
     }
 
-    void MostrarExhaustiva(ArrayList<Punto> puntos) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 
     public void Caso3(List<Punto> puntos, boolean peorcaso, int estrategia) throws IOException {
         int i = 500;
-        puntos.clear();
         System.out.println("Talla           Tiempo");
         while (i <= 5000) {
             puntos.clear();
             p.rellenarPuntos(puntos, i, peorcaso);
-            Tejecucion = CompararStrats(i, puntos, estrategia);
+            Tejecucion = CompararStrats(puntos, estrategia);
             System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
             lec.EscribirDat(estrategia, i, Tejecucion);
             i += 500;

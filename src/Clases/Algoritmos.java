@@ -54,7 +54,7 @@ public class Algoritmos {
         return p;
     }
 
-    public PuntosMin BusquedaExahustiva11(List<Punto> puntos, int inicio, int fin) {
+    /*public PuntosMin BusquedaExahustiva11(List<Punto> puntos, int inicio, int fin) {
         double dmin = distancia(puntos.get(0), puntos.get(1));
         cont++;
         p.punt(puntos.get(0), puntos.get(1));
@@ -69,7 +69,7 @@ public class Algoritmos {
             }
         }
         return p;
-    }
+    }*/
 
     //MODIFICACION EN CLASE
     public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
@@ -134,9 +134,6 @@ public class Algoritmos {
                 franja.add(puntos.get(k));
             }
         }
-
-        // Ordenar los puntos de la franja por coordenada Y para facilitar comparaciones verticales
-        //franja.sort(Comparator.comparingDouble(Punto::getY));
         // Comprobar las distancias entre los puntos dentro de la franja central
         for (int c = 0; c < franja.size(); c++) {
             // Comparar solo con los próximos puntos en Y, ya que están ordenados
@@ -157,18 +154,6 @@ public class Algoritmos {
         PuntosMin rec = new PuntosMin();
 
         if (der - izq <= 2) {
-            /* double minDistancia = Double.MAX_VALUE;
-            //n++;
-            for (int i = izq; i <= der; i++) {
-                for (int j = i + 1; j <= der; j++) {
-                    double distancia = distancia(puntos.get(i),
-                            puntos.get(j));
-                    if (distancia < minDistancia) {
-                        minDistancia = distancia;
-                        rec = new PuntosMin(puntos.get(i), puntos.get(j));
-                    }
-                }
-            }*/
             return BusquedaPoda(puntos, izq, der);
         }
 
@@ -246,12 +231,6 @@ public class Algoritmos {
             }
 
             quicksorty(puntosAux, 0, puntosAux.size() - 1);
-            /*              PuntosMin franja = BusquedaExahustiva11(puntosAux, 0, puntosAux.size() - 1);
-/*
-                if (franja.getDistancia() < p.getDistancia()) {
-                    p = franja;
-                }
-             */
             for (int w = 0; w < puntosAux.size(); w++) {
                 for (int j = w + 1; j < puntosAux.size()
                         && (puntosAux.get(j).getY() - puntosAux.get(w).getY()) < dmin; j++) {
@@ -348,7 +327,7 @@ public class Algoritmos {
                 y = aux1 / ((double) i + 1 + i * 0.100); //aux2; //+(i/3.0);
                 num = r.nextInt(0, 3);
                 y += ((i % 500) - num * (r.nextInt(0, 100)));
-                //y = Math.abs(y);
+                //y = Math.abs(y);//por si queremos que todos los puntos salgan positivos
                 x = 1;
                 p.add(new Punto(i + 1, x, y));
             }

@@ -3,7 +3,6 @@ package Clases;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -19,45 +18,45 @@ public class main {
         boolean peorcaso = false;
         Scanner sc = new Scanner(System.in);
         Punto p = new Punto();
-        PuntosMin pmin = new PuntosMin();
-        Algoritmos a = new Algoritmos();
-        Menus m = new Menus();
         ArrayList<Punto> puntos = new ArrayList<>();
-        ArrayList<String> ficheros = new ArrayList<>();
+        ArrayList<Punto> puntosAux = new ArrayList<>();
+        ArrayList<String> ficheros;
         Mostrar mo = new Mostrar();
         Lectura lec1 = new Lectura();
-
-        // ArrayList<Punto> puntosaleatorios = null;
         Menus menu = new Menus();
-        
+
         do {
-            
+
             opcion = menu.menuPrincipal(peorcaso);
             switch (opcion) {
                 case 1 -> {
-                    ficheros = mo.RellenarArrayFicheros();
+                    ficheros = mo.getFicheros();
                     for (int j = 0; j < ficheros.size(); j++) {
                         System.out.println("");
                         System.out.println("Nombre de fichero: " + ficheros.get(j));
                         System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                         Lectura lec = new Lectura(ficheros.get(j));
                         puntos = lec.getPuntos();
-                     
+                        puntosAux = (ArrayList<Punto>) puntos.clone();
                         for (int i = 1; i < 5; i++) {
+                            puntos = (ArrayList<Punto>) puntosAux.clone();
                             mo.MostrarExhaustiva(puntos, i);
-
                         }
-                        
-                    }
-                    
 
+                    }
                 }
                 case 2 -> {
                     System.out.println("Introduce la talla deseada: ");
                     talla = sc.nextInt();
+                    puntos.clear();
                     p.rellenarPuntos(puntos, talla, peorcaso);
+                    puntosAux = (ArrayList<Punto>) puntos.clone();
                     System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                     for (int i = 1; i < 5; i++) {
+                        puntos = (ArrayList<Punto>) puntosAux.clone();
+                        for (int j = 0; j < puntos.size(); j++) {
+                            System.out.println(puntos.get(j));
+                        }
                         mo.MostrarExhaustiva(puntos, i);
                     }
 
@@ -65,7 +64,6 @@ public class main {
                 case 3 -> {
                     int opcion3 = -1, i;
                     while (opcion3 != 0) {
-                        i = 500;
                         opcion3 = menu.menu3();
 
                         switch (opcion3) {
@@ -82,7 +80,6 @@ public class main {
                                 mo.Caso3(puntos, peorcaso, 4);
                                 break;
                             case 0:
-
                                 break;
                             default:
                                 throw new AssertionError();
@@ -90,7 +87,7 @@ public class main {
                     }
                 }
                 case 4 -> {
-                    int est1=-1, est2=-1, i = 500;
+                    int est1 = -1, est2 = -1, i = 500;
                     long Tejecucion1, Tejecucion2;
                     Algoritmos a1 = new Algoritmos();
                     Algoritmos a2 = new Algoritmos();
@@ -105,8 +102,8 @@ public class main {
                             while (i <= 5000) {
                                 puntos.clear();
                                 p.rellenarPuntos(puntos, i, peorcaso);
-                                Tejecucion1 = mo.CompararStrats(i, puntos, est1);
-                                Tejecucion2 = mo.CompararStrats(i, puntos, est2);
+                                Tejecucion1 = mo.CompararStrats(puntos, est1);
+                                Tejecucion2 = mo.CompararStrats(puntos, est2);
                                 System.out.printf("%d              %.9f          %.9f          %d           %d%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, a1.getCont(), a2.getCont());
                                 lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0));
                                 lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0));

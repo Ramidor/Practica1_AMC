@@ -96,7 +96,7 @@ public class Algoritmos {
 
     public static PuntosMin DyVe(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1);
-        return DyVe(puntos, 0, puntos.size() - 1);
+        return divide_y_venceras(puntos, 0, puntos.size() - 1);
     }
 
     //i de izq y d de derch
@@ -153,6 +153,65 @@ public class Algoritmos {
         return p; // Retornar el resultado con la menor distancia encontrada
     }
 
+    public static PuntosMin divide_y_venceras(List<Punto> puntos, int izq, int der) {
+        PuntosMin rec = new PuntosMin();
+
+        if (der - izq <= 2) {
+            /* double minDistancia = Double.MAX_VALUE;
+            //n++;
+            for (int i = izq; i <= der; i++) {
+                for (int j = i + 1; j <= der; j++) {
+                    double distancia = distancia(puntos.get(i),
+                            puntos.get(j));
+                    if (distancia < minDistancia) {
+                        minDistancia = distancia;
+                        rec = new PuntosMin(puntos.get(i), puntos.get(j));
+                    }
+                }
+            }*/
+            return BusquedaPoda(puntos, izq, der);
+        }
+
+        int medio = (izq + der) / 2;
+        Punto puntoMedio = puntos.get(medio);
+
+        PuntosMin Pi = divide_y_venceras(puntos, izq, medio);
+        PuntosMin Pd = divide_y_venceras(puntos, medio + 1, der);
+
+        double Di = Pi.getDistancia();
+        cont++;
+
+        double Dd = Pd.getDistancia();
+        cont++;
+        double Dmin = Math.min(Di, Dd);
+        if (Dmin == Di) {
+            rec = new PuntosMin(Pi.getA(), Pi.getB());
+        } else {
+            rec = new PuntosMin(Pd.getA(), Pd.getB());
+        }
+
+        ArrayList<Punto> puntosEnRango = new ArrayList<>();
+        for (int i = izq; i <= der; i++) {
+            if (Math.abs(puntos.get(i).getX() - puntoMedio.getX()) < Dmin) {
+                puntosEnRango.add(puntos.get(i));
+            }
+        }
+
+        for (int i = 0; i < puntosEnRango.size(); i++) {
+            for (int j = i + 1; j < puntosEnRango.size(); j++) {
+                double distancia = distancia(puntosEnRango.get(i), puntosEnRango.get(j));
+                cont++;
+                if (distancia < Dmin) {
+                    Dmin = distancia;
+                    rec = new PuntosMin(puntosEnRango.get(i),
+                            puntosEnRango.get(j));
+                }
+            }
+        }
+
+        return rec;
+    }
+
     public PuntosMin DyVeMejorado(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1);
         return DyVeMejorado(puntos, 0, puntos.size() - 1);
@@ -169,6 +228,7 @@ public class Algoritmos {
 
             double di = izq.getDistancia();
             double dd = der.getDistancia();
+            cont+=2;
             double dmin, dis;
             if (di <= dd) {
                 dmin = di;
@@ -178,20 +238,32 @@ public class Algoritmos {
                 p = der;
             }
 
-        List<Punto> puntosAux = new ArrayList<>();
-        for (int k = i; k <= d; k++) {
-            if (Math.abs(puntos.get(k).getX() - puntos.get(mitad).getX()) < dmin) {
-                puntosAux.add(puntos.get(k));
+            List<Punto> puntosAux = new ArrayList<>();
+            for (int k = i; k <= d; k++) {
+                if (Math.abs(puntos.get(k).getX() - puntos.get(mitad).getX()) < dmin) {
+                    puntosAux.add(puntos.get(k));
+                }
             }
-        }
 
-            if (puntosAux.size() >= 2) {
-                quicksorty(puntosAux, 0, puntosAux.size() - 1);
-                PuntosMin franja = BusquedaExahustiva11(puntosAux, 0, puntosAux.size()-1);
-
-            if (franja.getDistancia() < p.getDistancia()) {
-                p = franja;
-            }
+            quicksorty(puntosAux, 0, puntosAux.size() - 1);
+            /*              PuntosMin franja = BusquedaExahustiva11(puntosAux, 0, puntosAux.size() - 1);
+/*
+                if (franja.getDistancia() < p.getDistancia()) {
+                    p = franja;
+                }
+             */
+            for (int w = 0; w < puntosAux.size(); w++) {
+                for (int j = w + 1; j < puntosAux.size()
+                        && (puntosAux.get(j).getY() - puntosAux.get(w).getY()) < dmin; j++) {
+                    double distancia = distancia(puntosAux.get(w),
+                            puntosAux.get(j));
+                    cont++;
+                    if (distancia < dmin) {
+                        dmin = distancia;
+                        p = new PuntosMin(puntosAux.get(w),
+                                puntosAux.get(j));
+                    }
+                }
             }
 
         } else {
@@ -200,8 +272,7 @@ public class Algoritmos {
 
         return p;
     }
-    
-    
+
     public static void quicksort(List<Punto> puntos, int izq, int der) {
 
         // tomamos primer elemento como pivote
@@ -291,4 +362,5 @@ public class Algoritmos {
             }
         }
     }
+
 }

@@ -29,7 +29,7 @@ public class main {
 
         // ArrayList<Punto> puntosaleatorios = null;
         Menus menu = new Menus();
-
+        
         do {
             
             opcion = menu.menuPrincipal(peorcaso);
@@ -42,11 +42,14 @@ public class main {
                         System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                         Lectura lec = new Lectura(ficheros.get(j));
                         puntos = lec.getPuntos();
+                     
                         for (int i = 1; i < 5; i++) {
                             mo.MostrarExhaustiva(puntos, i);
 
                         }
+                        
                     }
+                    
 
                 }
                 case 2 -> {

@@ -24,6 +24,8 @@ public class main {
         Mostrar mo = new Mostrar();
         Lectura lec1 = new Lectura();
         Menus menu = new Menus();
+        Graficas g=new Graficas();
+        g.CrearGrafica(0);
 
         do {
 
@@ -105,8 +107,8 @@ public class main {
                                 Tejecucion1 = mo.CompararStrats(puntos, est1);
                                 Tejecucion2 = mo.CompararStrats(puntos, est2);
                                 System.out.printf("%d              %.9f          %.9f          %d           %d%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, a1.getCont(), a2.getCont());
-                                lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0));
-                                lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0));
+                                lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0),a1.getOp(),false);
+                                lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0),a2.getOp(),false);
                                 i += 500;
 
                             }

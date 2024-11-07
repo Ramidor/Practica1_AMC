@@ -55,6 +55,7 @@ public class Mostrar {
     public void MostrarExhaustiva(ArrayList<Punto> puntos2, int tipo) throws FileNotFoundException {
 
         a.setCont();
+        a.setOp();
 
         inicio = System.nanoTime();
 
@@ -109,24 +110,28 @@ public class Mostrar {
         Tejecucion3 = CompararStrats(puntos, 3);
         Tejecucion4 = CompararStrats(puntos, 4);
         System.out.printf("%d              %.9f          %.9f       %.9f        %.9f%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, Tejecucion3 / 1000000.0, Tejecucion4 / 1000000.0);
-        lec.EscribirDat(1, i, (long) (Tejecucion1 / 1000000.0));
-        lec.EscribirDat(2, i, (long) (Tejecucion2 / 1000000.0));
-        lec.EscribirDat(3, i, (long) (Tejecucion3 / 1000000.0));
-        lec.EscribirDat(4, i, (long) (Tejecucion4 / 1000000.0));
+        lec.EscribirDat(1, i, (long) (Tejecucion1 / 1000000.0),a.getOp(),false);
+        lec.EscribirDat(2, i, (long) (Tejecucion2 / 1000000.0),a.getOp(),false);
+        lec.EscribirDat(3, i, (long) (Tejecucion3 / 1000000.0),a.getOp(),false);
+        lec.EscribirDat(4, i, (long) (Tejecucion4 / 1000000.0),a.getOp(),false);
 
     }
 
 
     public void Caso3(List<Punto> puntos, boolean peorcaso, int estrategia) throws IOException {
         int i = 500;
-        System.out.println("Talla           Tiempo");
+       lec.borrarFichero(estrategia);
+        System.out.println("Talla           Tiempo          OpElementales");
         while (i <= 5000) {
+            a.setOp();
             puntos.clear();
             p.rellenarPuntos(puntos, i, peorcaso);
             Tejecucion = CompararStrats(puntos, estrategia);
-            System.out.printf("%d          %.9f%n", i, Tejecucion / 1000000.0);
-            lec.EscribirDat(estrategia, i, Tejecucion);
+            System.out.printf("%d          %.9f         %d %n", i, Tejecucion / 1000000.0,a.getOp());
+            lec.EscribirDat(estrategia, i, Tejecucion,a.getOp(),true);
             i += 500;
         }
+        
     }
+    
 }

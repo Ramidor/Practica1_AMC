@@ -13,7 +13,9 @@ import java.util.Random;
 public class Algoritmos {
 
     private PuntosMin p = new PuntosMin();
-    private static int cont = 0;
+    private static int cont = 0,op=0;
+    //static double dmin;
+    private static double CDi = 0, CDd = 0, CDmin = 0, Dmin = Double.MAX_VALUE;
 
     public static double distancia(Punto a, Punto b) {
         double x = Math.abs(a.getX() - b.getX());
@@ -34,23 +36,34 @@ public class Algoritmos {
         cont = 0;
     }
 
-    public void incrementaCont() {
-
+    public void setOp() {
+        op = 0;
     }
-
+    public int getOp(){
+        return op;
+       
+    }
     public PuntosMin BusquedaExahustiva(List<Punto> puntos, int inicio, int fin) {
+        
         p.punt(puntos.get(0), puntos.get(1));
-        double dmin = distancia(puntos.get(0), puntos.get(1));
+        op+=3;
+        double dmin = p.getDistancia();
+        op+=14;
         for (int i = inicio; i <= fin; i++) {
+            op+=5;
             for (int j = i + 1; j <= fin; j++) {
                 double d = distancia(puntos.get(i), puntos.get(j));
+                op+=10;
                 cont++;
+                op+=1;
                 if (d < dmin) {
                     dmin = d;
                     p.punt(puntos.get(i), puntos.get(j));
+                    op+=4;
                 }
             }
         }
+        
         return p;
     }
 
@@ -70,13 +83,13 @@ public class Algoritmos {
         }
         return p;
     }*/
-
     //MODIFICACION EN CLASE
     public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
         quicksort(puntos, inicio, fin); //ordenamos el fichero por la cordenada x
-        double dmin = distancia(puntos.get(0), puntos.get(1));
-        cont++;
         PuntosMin p = new PuntosMin(puntos.get(0), puntos.get(1));
+        double dmin = p.getDistancia();
+        cont++;
+        
         for (int i = inicio; i < fin; i++) {
             for (int j = i + 1; j < fin && j <= i + 11; j++) {
                 if ((puntos.get(j).getX() - puntos.get(i).getX()) < dmin) {
@@ -100,7 +113,7 @@ public class Algoritmos {
     }
 
     //i de izq y d de derch
-    public static PuntosMin DyVe(List<Punto> puntos, int i, int d) {
+    /*   public static PuntosMin DyVe(List<Punto> puntos, int i, int d) {
         int n = d - i + 1;
 
         // Caso base: Si el número de puntos es menor a 3, usar el método de búsqueda directa.
@@ -113,9 +126,9 @@ public class Algoritmos {
         PuntosMin der = DyVe(puntos, mitad + 1, d);
         PuntosMin p = new PuntosMin();
         // Distancias mínimas de las mitades izquierda y derecha
-        double di = izq.getDistancia();
+        di = izq.getDistancia();
         cont++;
-        double dd = der.getDistancia();
+         dd = der.getDistancia();
         cont++;
 
         double dmin;
@@ -149,7 +162,7 @@ public class Algoritmos {
 
         return p; // Retornar el resultado con la menor distancia encontrada
     }
-
+     */
     public static PuntosMin divide_y_venceras(List<Punto> puntos, int izq, int der) {
         PuntosMin rec = new PuntosMin();
 
@@ -158,8 +171,12 @@ public class Algoritmos {
         }
 
         int medio = (izq + der) / 2;
+        
         Punto puntoMedio = puntos.get(medio);
-
+        if (Dmin < CDmin) {
+            CDmin = Dmin;
+        }
+        else{
         PuntosMin Pi = divide_y_venceras(puntos, izq, medio);
         PuntosMin Pd = divide_y_venceras(puntos, medio + 1, der);
 
@@ -168,13 +185,14 @@ public class Algoritmos {
 
         double Dd = Pd.getDistancia();
         cont++;
-        double Dmin = Math.min(Di, Dd);
+        Dmin = Math.min(Di, Dd);
+
         if (Dmin == Di) {
             rec = new PuntosMin(Pi.getA(), Pi.getB());
         } else {
             rec = new PuntosMin(Pd.getA(), Pd.getB());
         }
-
+}
         ArrayList<Punto> puntosEnRango = new ArrayList<>();
         for (int i = izq; i <= der; i++) {
             if (Math.abs(puntos.get(i).getX() - puntoMedio.getX()) < Dmin) {
@@ -213,7 +231,7 @@ public class Algoritmos {
 
             double di = izq.getDistancia();
             double dd = der.getDistancia();
-            cont+=2;
+            cont += 2;
             double dmin, dis;
             if (di <= dd) {
                 dmin = di;

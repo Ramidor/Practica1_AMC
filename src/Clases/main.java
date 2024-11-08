@@ -14,7 +14,7 @@ public class main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int opcion, talla;
-        long inicio, fin, Tejecucion;//calculo del tiempo de los algoritmos
+       
         boolean peorcaso = false;
         Scanner sc = new Scanner(System.in);
         Punto p = new Punto();

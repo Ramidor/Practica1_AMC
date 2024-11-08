@@ -27,11 +27,11 @@ public class Graficas {
         lec.Lectura2(mo.estrategias.get(estrategia-1) + ".dat");
         lec.Leer2();
         op=lec.getOps();
-        System.out.println(op.size() + mo.estrategias.get(estrategia-1) + ".dat");
         // Crear un conjunto de datos
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < op.size(); i++) {
-            dataset.addValue(i, "Operaciones elementales", "500");
+            System.out.println(op.get(i));
+            dataset.addValue(op.get(i), "Operaciones elementales", ""+500*i);
         }
        
         // Crear el gráfico de líneas

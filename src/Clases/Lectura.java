@@ -70,9 +70,6 @@ void Leer2() throws IOException {
     try {
         String datos;
         while ((datos = reader.readLine()) != null) {
-            // Imprimir la línea que se está leyendo para depurar
-            System.out.println("Leyendo línea: " + datos);
-
             // Saltar la primera línea si es el encabezado
             if (datos.startsWith("Talla")) {
                 continue;
@@ -94,11 +91,7 @@ void Leer2() throws IOException {
 
             try {
                 // Leer el valor de Tejecucion (long) y el valor de ops (int)
-                long tiempoEjecucion = Long.parseLong(partes[1].trim());
-                int operaciones = Integer.parseInt(partes[2].trim());
-
-                // Agregar los valores a las listas correspondientes o procesarlos
-                System.out.println("Tiempo de ejecución: " + tiempoEjecucion);
+                int operaciones = Integer.parseInt(partes[2].trim());      
                 ops.add(operaciones);
 
             } catch (NumberFormatException e) {

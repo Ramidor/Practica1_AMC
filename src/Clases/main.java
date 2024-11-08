@@ -25,7 +25,7 @@ public class main {
         Lectura lec1 = new Lectura();
         Menus menu = new Menus();
         Graficas g=new Graficas();
-        g.CrearGrafica(1);
+       
 
         do {
 
@@ -71,15 +71,19 @@ public class main {
                         switch (opcion3) {
                             case 1:
                                 mo.Caso3(puntos, peorcaso, 1);
+                                g.CrearGrafica(1);
                                 break;
                             case 2:
                                 mo.Caso3(puntos, peorcaso, 2);
+                                 g.CrearGrafica(2);
                                 break;
                             case 3:
                                 mo.Caso3(puntos, peorcaso, 3);
+                                 g.CrearGrafica(3);
                                 break;
                             case 4:
                                 mo.Caso3(puntos, peorcaso, 4);
+                                 g.CrearGrafica(4);
                                 break;
                             case 0:
                                 break;

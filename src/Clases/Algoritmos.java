@@ -86,21 +86,27 @@ public class Algoritmos {
     //MODIFICACION EN CLASE
     public static PuntosMin BusquedaPoda(List<Punto> puntos, int inicio, int fin) {
         quicksort(puntos, inicio, fin); //ordenamos el fichero por la cordenada x
+        
         PuntosMin p = new PuntosMin(puntos.get(0), puntos.get(1));
         double dmin = p.getDistancia();
         cont++;
-        
+        op+=9;
         for (int i = inicio; i < fin; i++) {
+            op+=8;
             for (int j = i + 1; j < fin && j <= i + 11; j++) {
+                op+=4;
                 if ((puntos.get(j).getX() - puntos.get(i).getX()) < dmin) {
                     double d = distancia(puntos.get(i), puntos.get(j));
                     cont++;
+                    op+=3;
                     if (d < dmin) {
                         dmin = d;
                         p.punt(puntos.get(i), puntos.get(j));
+                        op+=2;
                     }
                 } else {
                     j = fin; //o ponemos break y al carajo
+                    op++;
                 }
             }
         }
@@ -277,28 +283,39 @@ public class Algoritmos {
         int i = izq;         // i realiza la búsqueda de izquierda a derecha
         int j = der;         // j realiza la búsqueda de derecha a izquierda
         Punto aux;
-
-        while (i < j) {                          // mientras no se crucen las búsquedas                                   
+        op+=5;
+        while (i < j) {   
+            op+=5;// mientras no se crucen las búsquedas                                   
             while ((puntos.get(i).getX() <= pivote.getX()) && (i < j)) {
-                i++; // busca elemento mayor que pivote
+            
+                i++;
+                op+=7;// busca elemento mayor que pivote
             }
+            op+=3;
             while (puntos.get(j).getX() > pivote.getX()) {
-                j--;           // busca elemento menor que pivote
-            }
+                j--;
+                op+=5;// busca elemento menor que pivote
+            }op+=1;
             if (i < j) {                        // si no se han cruzado                      
                 aux = puntos.get(i);                      // los intercambia
                 puntos.set(i, puntos.get(j));
                 puntos.set(j, aux);
+                op+=5;
             }
+            op++;
         }
 
         puntos.set(izq, puntos.get(j));      // se coloca el pivote en su lugar de forma que tendremos                                    
         puntos.set(j, pivote);      // los menores a su izquierda y los mayores a su derecha
+        op+=4;
         if (izq < j - 1) {
-            quicksort(puntos, izq, j - 1);          // ordenamos subarray izquierdo
+            quicksort(puntos, izq, j - 1); 
+            op++;// ordenamos subarray izquierdo
         }
+        op+=2;
         if (j + 1 < der) {
-            quicksort(puntos, j + 1, der);          // ordenamos subarray derecho
+            quicksort(puntos, j + 1, der);   
+            op++;// ordenamos subarray derecho
         }
     }
 

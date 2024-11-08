@@ -23,6 +23,7 @@ public class Mostrar {
     ArrayList<String> estrategias = new ArrayList<>();
     ArrayList<String> ficheros = new ArrayList<>();
     Lectura lec = new Lectura();
+   
 
     public Mostrar() {
         RellenarArrayFicheros();
@@ -131,7 +132,7 @@ public class Mostrar {
             lec.EscribirDat(estrategia, i, Tejecucion,a.getOp(),true);
             i += 500;
         }
-        
+         
     }
     
 }

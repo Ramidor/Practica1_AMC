@@ -25,7 +25,7 @@ public class main {
         Lectura lec1 = new Lectura();
         Menus menu = new Menus();
         Graficas g=new Graficas();
-        g.CrearGrafica(0);
+        g.CrearGrafica(1);
 
         do {
 

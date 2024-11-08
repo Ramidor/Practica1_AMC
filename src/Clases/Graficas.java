@@ -22,19 +22,21 @@ import java.util.ArrayList;
 public class Graficas {
     Mostrar mo=new Mostrar();
     ArrayList<Integer> op = new ArrayList<>();
-    public void CrearGrafica(int estrategia) throws FileNotFoundException {
+    public void CrearGrafica(int estrategia) throws FileNotFoundException, IOException {
         Lectura lec = new Lectura();
-        op = lec.leeOps(mo.estrategias.get(estrategia-1) + ".dat");
+        lec.Lectura2(mo.estrategias.get(estrategia-1) + ".dat");
+        lec.Leer2();
+        op=lec.getOps();
+        System.out.println(op.size() + mo.estrategias.get(estrategia-1) + ".dat");
         // Crear un conjunto de datos
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    
-        dataset.addValue(12, "Operaciones elementales", "500");
-        dataset.addValue(4, "Operaciones elementales", "1000");
-        dataset.addValue(222, "Operaciones elementales", "1500");
-        dataset.addValue(442, "Operaciones elementales", "2000");
+        for (int i = 0; i < op.size(); i++) {
+            dataset.addValue(i, "Operaciones elementales", "500");
+        }
+       
         // Crear el gráfico de líneas
         JFreeChart chart = ChartFactory.createLineChart(
-                "Coste", // Título del gráfico
+                "Coste" + mo.estrategias.get(estrategia-1), // Título del gráfico
                 "Talla",  // Etiqueta del eje X
                 "Operaciones elementales", // Etiqueta del eje Y
                 dataset              // Datos

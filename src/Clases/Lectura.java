@@ -12,13 +12,31 @@ public class Lectura {
     BufferedReader reader;
     BufferedWriter writer;
     ArrayList<Punto> puntos;
+    ArrayList<Integer> ops;
+    ArrayList<Integer> array;
 
     public Lectura(String file) throws FileNotFoundException {
         reader = new BufferedReader(new FileReader(file));
         puntos = new ArrayList<Punto>();
+        ops = new ArrayList<Integer>();
+        array = new ArrayList<Integer>();
 
         try {
             Leer();
+            Cerrar();
+        } catch (IOException e) {
+            System.err.println("Error al leer el archivo: " + e);
+        }
+    }
+
+    public void Lectura2(String file) throws FileNotFoundException {
+        reader = new BufferedReader(new FileReader(file));
+        puntos = new ArrayList<Punto>();
+        ops = new ArrayList<Integer>();
+        array = new ArrayList<Integer>();
+
+        try {
+            Leer2();
             Cerrar();
         } catch (IOException e) {
             System.err.println("Error al leer el archivo: " + e);
@@ -30,6 +48,10 @@ public class Lectura {
 
     public ArrayList<Punto> getPuntos() {
         return puntos;
+    }
+
+    public ArrayList<Integer> getOps() {
+        return ops;
     }
 
     void Leer() throws IOException {
@@ -44,6 +66,50 @@ public class Lectura {
             puntos.add(new Punto((int) Double.parseDouble(data[0]), Double.parseDouble(data[1]), Double.parseDouble(data[2])));
         }
     }
+void Leer2() throws IOException {
+    try {
+        String datos;
+        while ((datos = reader.readLine()) != null) {
+            // Imprimir la línea que se está leyendo para depurar
+            System.out.println("Leyendo línea: " + datos);
+
+            // Saltar la primera línea si es el encabezado
+            if (datos.startsWith("Talla")) {
+                continue;
+            }
+
+            // Comprobar si la línea está vacía
+            if (datos.trim().isEmpty()) {
+                continue; // Pasar a la siguiente línea
+            }
+
+            // Dividir la línea en partes usando el separador "-----"
+            String[] partes = datos.split("-----");
+
+            // Verificar que la línea esté bien formateada (debe tener 3 partes)
+            if (partes.length != 3) {
+                System.err.println("Formato incorrecto en la línea: " + datos);
+                continue; // Saltar esta línea y seguir con la siguiente
+            }
+
+            try {
+                // Leer el valor de Tejecucion (long) y el valor de ops (int)
+                long tiempoEjecucion = Long.parseLong(partes[1].trim());
+                int operaciones = Integer.parseInt(partes[2].trim());
+
+                // Agregar los valores a las listas correspondientes o procesarlos
+                System.out.println("Tiempo de ejecución: " + tiempoEjecucion);
+                ops.add(operaciones);
+
+            } catch (NumberFormatException e) {
+                System.err.println("Error al convertir un número en la línea: " + datos + ". Detalle: " + e.getMessage());
+            }
+        }
+    } catch (IOException e) {
+        System.err.println("Error al leer la línea: " + e.getMessage());
+    }
+}
+
 
     void Cerrar() throws IOException {
         reader.close();
@@ -83,9 +149,9 @@ public class Lectura {
 
         FileWriter escribir = new FileWriter(archivo, sob);
         if (archivo.length() == 0) {
-            escribir.write("Talla          Tiempo ejecucion          Operaciones"+"\n");
+            escribir.write("Talla          Tiempo ejecucion          Operaciones" + "\n");
         }
-        escribir.write(talla + "          " + Tejecucion + "          " + ops + "\n");
+        escribir.write(talla + "-----" + Tejecucion + "-----" + ops + "\n");
 
         escribir.close();
     }
@@ -96,7 +162,4 @@ public class Lectura {
         archivo.delete();
     }
 
-    ArrayList<Integer> leeOps(String string) {
-       
-    }
 }

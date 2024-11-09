@@ -80,7 +80,8 @@ public class Mostrar {
     }
 
     public void Apartado3(List<Punto> puntos, int estrategia) throws IOException {
-
+        a.setCont();
+        a.setOp();
         if (estrategia == 1) {
             a.BusquedaExahustiva(puntos, 0, puntos.size() - 1);
         } else if (estrategia == 2) {

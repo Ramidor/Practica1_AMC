@@ -119,6 +119,7 @@ public class Mostrar {
     public void Caso3(List<Punto> puntos, boolean peorcaso, int estrategia) throws IOException {
         int i = 500;
         lec.borrarFichero(estrategia);
+        lec.borrarFicheroGrafica(estrategia);
         System.out.println("Talla           Tiempo          Distancias");
         while (i <= 5000) {
             a.setOp();
@@ -142,6 +143,7 @@ public class Mostrar {
             puntos.clear();
             p.rellenarPuntos(puntos, i, peorcaso);
             Tejecucion = CompararStrats(puntos, estrategia);
+            System.out.println(a.getOp());
             String[] fila = new String[]{
                 String.valueOf(i), // Talla
                 String.format("%.9f", Tejecucion / 1000000.0), // Tiempo

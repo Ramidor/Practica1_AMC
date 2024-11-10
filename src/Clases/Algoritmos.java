@@ -208,6 +208,7 @@ public class Algoritmos {
     }
 
     public PuntosMin DyVeMejorado(List<Punto> puntos, int i, int d) {
+        System.out.println(getOp());
         int n = (d - i + 1);
         op+=4;
         if (n >= 3) {
@@ -322,7 +323,7 @@ public class Algoritmos {
         int i = izq;         // i realiza la búsqueda de izquierda a derecha
         int j = der;         // j realiza la búsqueda de derecha a izquierda
         Punto aux;
-        op=+5;
+        op+=5;
         while (i < j) {           
             op+=5;// mientras no se crucen las búsquedas                                   
             while ((puntos.get(i).getY() <= pivote.getY()) && (i < j)) {

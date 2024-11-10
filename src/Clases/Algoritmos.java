@@ -208,7 +208,6 @@ public class Algoritmos {
     }
 
     public PuntosMin DyVeMejorado(List<Punto> puntos, int i, int d) {
-        System.out.println(getOp());
         int n = (d - i + 1);
         op+=4;
         if (n >= 3) {

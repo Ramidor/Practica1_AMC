@@ -195,6 +195,8 @@ public class MainAppGUI extends JFrame {
 
     private void ejecutarOpcion4() {
         try {
+            tabbedPane.removeAll();
+
             // Paso 1: Seleccionar estrategias
             String[] opciones = {"1 - Exhaustivo", "2 - Exhaustivo con poda", "3 - Divide y vencerás", "4 - DyVe Mejorado"};
             String opcionStr1 = (String) JOptionPane.showInputDialog(this, "Selecciona la primera estrategia:", "Comparación de Estrategias", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
@@ -210,6 +212,7 @@ public class MainAppGUI extends JFrame {
             int est1 = Integer.parseInt(opcionStr1.split(" ")[0]);
             int est2 = Integer.parseInt(opcionStr2.split(" ")[0]);
 
+            JPanel panelFichero = new JPanel(new BorderLayout());
             // Paso 2: Crear modelo para la tabla
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Talla");
@@ -219,63 +222,44 @@ public class MainAppGUI extends JFrame {
             model.addColumn("Distancias Calculadas");
 
             // Paso 3: Ejecutar comparación para tallas de 500 a 5000
-            int talla = 500;
-            Punto p = new Punto();
-            Algoritmos a1 = new Algoritmos();
-            Algoritmos a2 = new Algoritmos();
+            ArrayList<String[]> resultados = mo.Caso4(puntos, peorcaso, est1, est2);
 
-            while (talla <= 5000) {
-                puntos.clear();
-                p.rellenarPuntos(puntos, talla, peorcaso);
-
-                // Ejecutar y medir tiempo para la primera estrategia
-                long tiempoInicio1 = System.nanoTime();
-                mo.CompararStrats(puntos, est1);
-                long tiempoFin1 = System.nanoTime();
-                long tiempoEjecucion1 = (tiempoFin1 - tiempoInicio1) / 1000000; // Convertir a ms
-                int distanciasCalculadas1 = a1.getCont();
-
-                // Ejecutar y medir tiempo para la segunda estrategia
-                long tiempoInicio2 = System.nanoTime();
-                mo.CompararStrats(puntos, est2);
-                long tiempoFin2 = System.nanoTime();
-                long tiempoEjecucion2 = (tiempoFin2 - tiempoInicio2) / 1000000; // Convertir a ms
-                int distanciasCalculadas2 = a2.getCont();
-
-                // Agregar datos a la tabla
-                model.addRow(new Object[]{
-                    talla,
-                    tiempoEjecucion1,
-                    distanciasCalculadas1,
-                    tiempoEjecucion2,
-                    distanciasCalculadas2
-                });
-
-                talla += 500; // Incrementar talla
+            for (String[] fila : resultados) {
+                model.addRow(fila);
             }
 
             // Mostrar resultados en un nuevo JFrame con JTable
-            JFrame resultadosFrame = new JFrame("Comparación de Estrategias");
-            resultadosFrame.setSize(700, 400);
             JTable table = new JTable(model);
-            resultadosFrame.add(new JScrollPane(table));
-            resultadosFrame.setVisible(true);
+            panelFichero.add(new JScrollPane(table), BorderLayout.CENTER);
+            tabbedPane.addTab("Estrategia: " + opcionStr1 + " - " + opcionStr2, panelFichero);
 
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en la opción 4: " + e.getMessage());
         }
     }
 
-private void ejecutarOpcion5() {
+    private void ejecutarOpcion5() {
         try {
-            int i = 500;
-            while (i <= 5000) {
-                puntos.clear();
-                Punto p = new Punto();
-                p.rellenarPuntos(puntos, i, peorcaso);
-                mo.TodasStrat(peorcaso, puntos, i);
-                i += 500;
+            tabbedPane.removeAll();
+
+            JPanel panelFichero = new JPanel(new BorderLayout());
+            // Paso 2: Crear modelo para la tabla
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Talla");
+            model.addColumn("Exahustivo");
+            model.addColumn("Poda");
+            model.addColumn("DyV");
+            model.addColumn("DyV Meejorado");
+
+            ArrayList<String[]> resultados = mo.TodasStratTabla(peorcaso, puntos);
+            for (String[] fila : resultados) {
+                model.addRow(fila);
             }
+
+            JTable table = new JTable(model);
+            panelFichero.add(new JScrollPane(table), BorderLayout.CENTER);
+            tabbedPane.addTab("Todas las Strats", panelFichero);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en la opción 5: " + e.getMessage());
         }
@@ -301,12 +285,45 @@ private void ejecutarOpcion5() {
 
     private void ejecutarOpcion8() {
         try {
-            String archivo = JOptionPane.showInputDialog(this, "Introduce el nombre del archivo:");
-            Lectura lecturatsp = new Lectura(archivo + ".tsp");
-            puntos = lecturatsp.getPuntos();
-            for (int x = 1; x < 5; x++) {
-                mo.MostrarExhaustiva(puntos, x);
+            String fichero = JOptionPane.showInputDialog(this, "Introduce el nombre del archivo:");
+
+            // Crear un nuevo panel para cada fichero
+            JPanel panelFichero = new JPanel(new BorderLayout());
+
+            // Crear etiqueta con el nombre del fichero
+            JLabel labelFichero = new JLabel("Nombre del fichero: " + fichero, SwingConstants.CENTER);
+            panelFichero.add(labelFichero, BorderLayout.NORTH);
+
+            // Configurar tabla para mostrar datos
+            DefaultTableModel model = new DefaultTableModel();
+            model.addColumn("Estrategia");
+            model.addColumn("Punto1");
+            model.addColumn("Punto2");
+            model.addColumn("Distancia");
+            model.addColumn("Calculadas");
+            model.addColumn("Tiempo");
+
+            Lectura lec = new Lectura(fichero + ".tsp");
+            puntos = lec.getPuntos();
+            puntosAux = (ArrayList<Punto>) puntos.clone();
+
+            for (int i = 1; i < 5; i++) {
+                puntos = (ArrayList<Punto>) puntosAux.clone();
+                ArrayList<String[]> resultados = mo.MostrarExhaustivaTabla(puntos, i);
+
+                // Agregar resultados al modelo de la tabla
+                for (String[] fila : resultados) {
+                    model.addRow(fila);
+                }
             }
+
+            // Crear la tabla y añadirla al panel
+            JTable table = new JTable(model);
+            panelFichero.add(new JScrollPane(table), BorderLayout.CENTER);
+
+            // Añadir el panel del fichero como una nueva pestaña
+            tabbedPane.addTab(fichero, panelFichero);
+
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en la opción 8: " + e.getMessage());
         }

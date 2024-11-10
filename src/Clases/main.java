@@ -10,7 +10,6 @@ import java.util.Scanner;
  * @author raulp
  */
 public class main {
-//adri maricon trabaja
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int opcion, talla;
@@ -56,9 +55,6 @@ public class main {
                     System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                     for (int i = 1; i < 5; i++) {
                         puntos = (ArrayList<Punto>) puntosAux.clone();
-                        for (int j = 0; j < puntos.size(); j++) {
-                            System.out.println(puntos.get(j));
-                        }
                         mo.MostrarExhaustiva(puntos, i);
                     }
 
@@ -104,7 +100,7 @@ public class main {
                         if (est1 != 0 || est2 != 0) {
 
                             System.out.println("                Exhaustivo          ExhaustivoPoda          Exhaustivo          ExhaustivoPoda");
-                            System.out.println("Talla           Tiempo              Tiempo                 Distacias           Distancias");
+                            System.out.println("Talla           Tiempo              Tiempo                 Distancias           Distancias");
                             while (i <= 5000) {
                                 puntos.clear();
                                 p.rellenarPuntos(puntos, i, peorcaso);

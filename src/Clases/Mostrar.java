@@ -93,7 +93,6 @@ public class Mostrar {
     }
 
     public long CompararStrats(List<Punto> puntos, int estrategia) throws IOException {
-
         inicio = System.nanoTime();
         Apartado3(puntos, estrategia);
         fin = System.nanoTime();
@@ -105,39 +104,39 @@ public class Mostrar {
     public void TodasStrat(boolean peorcaso, List<Punto> puntos, int i) throws IOException {
 
         long Tejecucion1, Tejecucion2, Tejecucion3, Tejecucion4;
-
+       
         Tejecucion1 = CompararStrats(puntos, 1);
+         lec.EscribirDat(1, i, (long) (Tejecucion1 / 1000000.0), a.getCont(), true);
         Tejecucion2 = CompararStrats(puntos, 2);
+         lec.EscribirDat(2, i, (long) (Tejecucion2 / 1000000.0), a.getCont(), true);
         Tejecucion3 = CompararStrats(puntos, 3);
+         lec.EscribirDat(3, i, (long) (Tejecucion3 / 1000000.0), a.getCont(), true);          
         Tejecucion4 = CompararStrats(puntos, 4);
+        lec.EscribirDat(4, i, (long) (Tejecucion4 / 1000000.0), a.getCont(), true);
         System.out.printf("%d              %.9f          %.9f       %.9f        %.9f%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, Tejecucion3 / 1000000.0, Tejecucion4 / 1000000.0);
-        lec.EscribirDat(1, i, (long) (Tejecucion1 / 1000000.0), a.getOp(), false);
-        lec.EscribirDat(2, i, (long) (Tejecucion2 / 1000000.0), a.getOp(), false);
-        lec.EscribirDat(3, i, (long) (Tejecucion3 / 1000000.0), a.getOp(), false);
-        lec.EscribirDat(4, i, (long) (Tejecucion4 / 1000000.0), a.getOp(), false);
-
     }
 
     public void Caso3(List<Punto> puntos, boolean peorcaso, int estrategia) throws IOException {
         int i = 500;
         lec.borrarFichero(estrategia);
-        System.out.println("Talla           Tiempo          OpElementales");
+        System.out.println("Talla           Tiempo          Distancias");
         while (i <= 5000) {
             a.setOp();
             puntos.clear();
             p.rellenarPuntos(puntos, i, peorcaso);
             Tejecucion = CompararStrats(puntos, estrategia);
-            System.out.printf("%d          %.9f         %d %n", i, Tejecucion / 1000000.0, a.getOp());
-            lec.EscribirDat(estrategia, i, Tejecucion, a.getOp(), true);
+            System.out.printf("%d          %.9f         %d %n", i, Tejecucion / 1000000.0, a.getCont());
+            lec.EscribirDat(estrategia, i, Tejecucion/1000000, a.getCont(), true);
+            lec.EscribirDatops(estrategia, i, Tejecucion/1000000, a.getOp(), true);
             i += 500;
         }
-
     }
 
     public ArrayList<String[]> Caso3Tabla(List<Punto> puntos, boolean peorcaso, int estrategia) throws IOException {
         ArrayList<String[]> resultados = new ArrayList<>();
         int i = 500;
         lec.borrarFichero(estrategia);
+        lec.borrarFicheroGrafica(estrategia);
         while (i <= 5000) {
             a.setOp();
             puntos.clear();
@@ -146,10 +145,11 @@ public class Mostrar {
             String[] fila = new String[]{
                 String.valueOf(i), // Talla
                 String.format("%.9f", Tejecucion / 1000000.0), // Tiempo
-                String.valueOf(a.getCont()), // OpElementales
+                String.valueOf(a.getCont()), // Distancias
             };
             resultados.add(fila);
-            lec.EscribirDat(estrategia, i, Tejecucion, a.getOp(), true);
+            lec.EscribirDat(estrategia, i, Tejecucion, a.getCont(), true);
+            lec.EscribirDatops(estrategia, i, Tejecucion, a.getOp(), true);
             i += 500;
         }
 

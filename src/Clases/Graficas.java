@@ -25,13 +25,12 @@ public class Graficas {
     ArrayList<Integer> op = new ArrayList<>();
     public void CrearGrafica(int estrategia) throws FileNotFoundException, IOException {
         Lectura lec = new Lectura();
-        lec.Lectura2(mo.estrategias.get(estrategia-1) + ".dat");
+        lec.Lectura2(mo.estrategias.get(estrategia-1) + "Grafica.dat");
         lec.Leer2();
         op=lec.getOps();
         // Crear un conjunto de datos
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (int i = 0; i < op.size(); i++) {
-            System.out.println(op.get(i));
             dataset.addValue(op.get(i), "Operaciones elementales", ""+500*(i+1));
         }
        
@@ -46,7 +45,7 @@ public class Graficas {
         // Guardar el gráfico como archivo de imagen
         try {
             ChartUtilities.saveChartAsPNG(new File(mo.estrategias.get(estrategia-1) + ".png"), chart, 800, 600);
-            System.out.println("Gráfico guardado en 'grafico.png'");
+            System.out.println("Gráfico guardado en " + mo.estrategias.get(estrategia-1)+".png");
         } catch (IOException e) {
             System.err.println("Error al guardar el gráfico: " + e.getMessage());
         }

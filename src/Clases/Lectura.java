@@ -136,9 +136,9 @@ void Leer2() throws IOException {
         escribir.close();
     }
 
-    public void EscribirDat(int estrategia, int talla, long Tejecucion, int ops, boolean sob) throws IOException {
+    public void EscribirDatops(int estrategia, int talla, long Tejecucion, int ops, boolean sob) throws IOException {
         Mostrar mo = new Mostrar();
-        File archivo = new File(mo.estrategias.get(estrategia - 1) + ".dat");
+        File archivo = new File(mo.estrategias.get(estrategia - 1) + "Grafica.dat");
 
         FileWriter escribir = new FileWriter(archivo, sob);
         if (archivo.length() == 0) {
@@ -148,10 +148,27 @@ void Leer2() throws IOException {
 
         escribir.close();
     }
+    public void EscribirDat(int estrategia, int talla, long Tejecucion,int distancias, boolean sob) throws IOException {
+        Mostrar mo = new Mostrar();
+        File archivo = new File(mo.estrategias.get(estrategia - 1) + ".dat");
+
+        FileWriter escribir = new FileWriter(archivo, sob);
+        if (archivo.length() == 0) {
+            escribir.write("Talla          Tiempo ejecucion          Distancias Calculadas" + "\n");
+        }
+        escribir.write(talla + "-----" + Tejecucion + "-----" + distancias + "\n");
+
+        escribir.close();
+    }
 
     public void borrarFichero(int estrategia) {
         Mostrar mo = new Mostrar();
         File archivo = new File(mo.estrategias.get(estrategia - 1) + ".dat");
+        archivo.delete();
+    }
+    public void borrarFicheroGrafica(int estrategia) {
+        Mostrar mo = new Mostrar();
+        File archivo = new File(mo.estrategias.get(estrategia - 1) + "Grafica.dat");
         archivo.delete();
     }
 

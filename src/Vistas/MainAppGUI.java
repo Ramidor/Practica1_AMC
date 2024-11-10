@@ -175,7 +175,7 @@ public class MainAppGUI extends JFrame {
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Talla");
             model.addColumn("Tiempo");
-            model.addColumn("OpElemetales");
+            model.addColumn("Distancias Calculadas");
             ArrayList<String[]> resultados = mo.Caso3Tabla(puntos, peorcaso, opcion);
 
             // Agregar resultados al modelo de la tabla

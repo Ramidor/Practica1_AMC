@@ -13,7 +13,7 @@ public class main {
 
     public static void main(String[] args) throws FileNotFoundException, IOException {
         int opcion, talla;
-       
+
         boolean peorcaso = false;
         Scanner sc = new Scanner(System.in);
         Punto p = new Punto();
@@ -23,8 +23,7 @@ public class main {
         Mostrar mo = new Mostrar();
         Lectura lec1 = new Lectura();
         Menus menu = new Menus();
-        Graficas g=new Graficas();
-       
+        Graficas g = new Graficas();
 
         do {
 
@@ -71,15 +70,15 @@ public class main {
                                 break;
                             case 2:
                                 mo.Caso3(puntos, peorcaso, 2);
-                                 g.CrearGrafica(2);
+                                g.CrearGrafica(2);
                                 break;
                             case 3:
                                 mo.Caso3(puntos, peorcaso, 3);
-                                 g.CrearGrafica(3);
+                                g.CrearGrafica(3);
                                 break;
                             case 4:
                                 mo.Caso3(puntos, peorcaso, 4);
-                                 g.CrearGrafica(4);
+                                g.CrearGrafica(4);
                                 break;
                             case 0:
                                 break;
@@ -93,22 +92,23 @@ public class main {
                     long Tejecucion1, Tejecucion2;
                     Algoritmos a1 = new Algoritmos();
                     Algoritmos a2 = new Algoritmos();
-                    while (est1 != 0 && est2 != 0) {
+                    while (est1 != 0 || est2 != 0) {
                         est1 = menu.menu3();
                         est2 = menu.menu3();
 
                         if (est1 != 0 || est2 != 0) {
-
+                            lec1.borrarFichero(est1);
+                            lec1.borrarFichero(est2);
                             System.out.println("                Exhaustivo          ExhaustivoPoda          Exhaustivo          ExhaustivoPoda");
                             System.out.println("Talla           Tiempo              Tiempo                 Distancias           Distancias");
                             while (i <= 5000) {
                                 puntos.clear();
                                 p.rellenarPuntos(puntos, i, peorcaso);
                                 Tejecucion1 = mo.CompararStrats(puntos, est1);
+                                lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0), a1.getCont(), true);
                                 Tejecucion2 = mo.CompararStrats(puntos, est2);
+                                lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0), a2.getCont(), true);
                                 System.out.printf("%d              %.9f          %.9f          %d           %d%n", i, Tejecucion1 / 1000000.0, Tejecucion2 / 1000000.0, a1.getCont(), a2.getCont());
-                                lec1.EscribirDat(est1, i, (long) (Tejecucion1 / 1000000.0),a1.getOp(),false);
-                                lec1.EscribirDat(est2, i, (long) (Tejecucion2 / 1000000.0),a2.getOp(),false);
                                 i += 500;
 
                             }
@@ -117,6 +117,9 @@ public class main {
                 }
                 case 5 -> {
                     int i = 500;
+                    for (int j = 1; j <= mo.estrategias.size(); j++) {
+                        lec1.borrarFichero(j);
+                    }
                     System.out.println("                Exhaustivo          ExhaustivoPoda         DyVe                DyVe Mejorado");
                     System.out.println("Talla           Tiempo              Tiempo                 Tiempo              Tiempo");
                     while (i <= 5000) {
@@ -153,9 +156,7 @@ public class main {
                     System.out.println("Estrategia        Punto1          Punto2          distancia                          calculadas          tiempo");
                     for (int x = 1; x < 5; x++) {
                         mo.MostrarExhaustiva(puntos, x);
-
                     }
-
                 }
                 case 0 -> {
                 }

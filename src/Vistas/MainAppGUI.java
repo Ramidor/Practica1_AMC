@@ -188,6 +188,15 @@ public class MainAppGUI extends JFrame {
             tabbedPane.addTab("Estrategia: " + opcion, panelFichero);
 
             g.CrearGrafica(opcion);
+            try {
+                ImageIcon imagen = new ImageIcon(mo.getEstrategias().get(opcion - 1) + ".png");
+                Image imagenEscalada = imagen.getImage().getScaledInstance(450, 333, Image.SCALE_SMOOTH);
+                ImageIcon imagenRedimensionada = new ImageIcon(imagenEscalada);
+                JLabel labelImagen = new JLabel(imagenRedimensionada);
+                panelFichero.add(labelImagen, BorderLayout.SOUTH); // Añadir la imagen en la parte inferior
+            } catch (Exception imgEx) {
+                System.err.println("Error al cargar la imagen: " + imgEx.getMessage());
+            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error en la opción 3: " + e.getMessage());
         }
@@ -272,6 +281,7 @@ public class MainAppGUI extends JFrame {
 
     private void ejecutarOpcion7() {
         try {
+            tabbedPane.removeAll();
             String tallaStr = JOptionPane.showInputDialog(this, "Introduce la talla del TSP:");
             talla = Integer.parseInt(tallaStr);
             puntos.clear();
@@ -285,6 +295,7 @@ public class MainAppGUI extends JFrame {
 
     private void ejecutarOpcion8() {
         try {
+            tabbedPane.removeAll();
             String fichero = JOptionPane.showInputDialog(this, "Introduce el nombre del archivo:");
 
             // Crear un nuevo panel para cada fichero

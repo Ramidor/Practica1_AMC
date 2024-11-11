@@ -132,10 +132,10 @@ public class Algoritmos {
     public static PuntosMin DyVe(List<Punto> puntos) {
         quicksort(puntos, 0, puntos.size() - 1);
         op = +3;
-        return divide_y_venceras(puntos, 0, puntos.size() - 1);
+        return DyVe(puntos, 0, puntos.size() - 1);
     }
 
-    public static PuntosMin divide_y_venceras(List<Punto> puntos, int izq, int der) {
+    public static PuntosMin DyVe(List<Punto> puntos, int izq, int der) {
         PuntosMin rec = new PuntosMin();
         op += 3;
         if (der - izq <= 2) {
@@ -148,8 +148,8 @@ public class Algoritmos {
         Punto puntoMedio = puntos.get(medio);
         op += 6;
 
-        PuntosMin Pi = divide_y_venceras(puntos, izq, medio);
-        PuntosMin Pd = divide_y_venceras(puntos, medio + 1, der);
+        PuntosMin Pi = DyVe(puntos, izq, medio);
+        PuntosMin Pd = DyVe(puntos, medio + 1, der);
 
         double Di = Pi.getDistancia();
         cont++;

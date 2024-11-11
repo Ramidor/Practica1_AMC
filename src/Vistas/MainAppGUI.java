@@ -168,9 +168,9 @@ public class MainAppGUI extends JFrame {
         try {
             tabbedPane.removeAll();
             puntos.clear();
-            String[] opciones = {"1", "2", "3", "4"};
+            String[] opciones = {"1 - Exhaustivo", "2 - Exhaustivo con poda", "3 - Divide y vencerás", "4 - DyVe Mejorado"};
             String opcionStr = (String) JOptionPane.showInputDialog(this, "Selecciona una estrategia:", "Opciones", JOptionPane.QUESTION_MESSAGE, null, opciones, opciones[0]);
-            int opcion = Integer.parseInt(opcionStr);
+            int opcion = Integer.parseInt(opcionStr.split(" ")[0]);
             JPanel panelFichero = new JPanel(new BorderLayout());
             DefaultTableModel model = new DefaultTableModel();
             model.addColumn("Talla");

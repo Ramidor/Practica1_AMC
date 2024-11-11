@@ -205,69 +205,68 @@ public class Algoritmos {
     }
 
     public PuntosMin DyVeMejorado(List<Punto> puntos, int i, int d) {
-        int n = (d - i + 1);
-        op += 4;
-        if (n >= 3) {
-            PuntosMin izq = new PuntosMin(), der = new PuntosMin();
-            int mitad = (i + d) / 2;
-            izq = DyVeMejorado(puntos, i, mitad);
-            der = DyVeMejorado(puntos, mitad + 1, d);
+    int n = (d - i + 1);
+    op += 4;
+    if (n >= 3) {
+        PuntosMin izq = new PuntosMin(), der = new PuntosMin();
+        int mitad = (i + d) / 2;
+        izq = DyVeMejorado(puntos, i, mitad);
+        der = DyVeMejorado(puntos, mitad + 1, d);
 
-            double di = izq.getDistancia();
-            double dd = der.getDistancia();
-            cont += 2;
-            double dmin, dis;
-            op += 16;
-            if (di <= dd) {
-                dmin = di;
-                p = izq;
-                op += 2;
-            } else {
-                dmin = dd;
-                p = der;
+        double di = izq.getDistancia();
+        double dd = der.getDistancia();
+        cont += 2;
+        double dmin, dis;
+        op += 16;
+        if (di <= dd) {
+            dmin = di;
+            p = izq;
+            op += 2;
+        } else {
+            dmin = dd;
+            p = der;
+            op += 2;
+        }
+
+        List<Punto> puntosAux = new ArrayList<>();
+        op += 6;
+        for (int k = i; k <= d; k++) {
+            op += 4;
+            if (Math.abs(puntos.get(k).getX() - puntos.get(mitad).getX()) < dmin) {
+                puntosAux.add(puntos.get(k));
                 op += 2;
             }
+            op += 3;
+        }
 
-            List<Punto> puntosAux = new ArrayList<>();
-            op += 6;
-            for (int k = i; k <= d; k++) {
-                op += 4;
-                if (Math.abs(puntos.get(k).getX() - puntos.get(mitad).getX()) < dmin) {
-                    puntosAux.add(puntos.get(k));
-                    op += 2;
-                }
-                op += 3;
-            }
-
-            quicksorty(puntosAux, 0, puntosAux.size() - 1);
-            op += 6;
-            for (int w = 0; w < puntosAux.size(); w++) {
-                op += 11;
-                for (int j = w + 1; j < puntosAux.size()
-                        && ((puntosAux.get(j).getY() - puntosAux.get(w).getY()) < dmin) && j <= w + 11; j++) {
-                    double distancia = distancia(puntosAux.get(w),
-                            puntosAux.get(j));
+        quicksorty(puntosAux, 0, puntosAux.size() - 1);
+        op += 6;
+        for (int w = 0; w < puntosAux.size(); w++) {
+            op += 11;
+            // Solo comprobamos los 12 siguientes puntos en la lista ordenada
+            for (int j = w + 1; j < puntosAux.size() && j < w + 12; j++) {
+                if ((puntosAux.get(j).getY() - puntosAux.get(w).getY()) < dmin) {
+                    double distancia = distancia(puntosAux.get(w), puntosAux.get(j));
                     cont++;
                     op++;
                     if (distancia < dmin) {
                         dmin = distancia;
-                        p = new PuntosMin(puntosAux.get(w),
-                                puntosAux.get(j));
+                        p = new PuntosMin(puntosAux.get(w), puntosAux.get(j));
                         op += 4;
                     }
-                    op += 11;
                 }
-                op += 6;
-
+                op += 11;
             }
-
-        } else {
-            op += 2;
-            p = BusquedaPoda(puntos, i, d);
+            op += 6;
         }
 
-        return p;
+    } else {
+        op += 2;
+        p = BusquedaPoda(puntos, i, d);
     }
+
+    return p;
+}
 
     public static void quicksort(List<Punto> puntos, int izq, int der) {
 

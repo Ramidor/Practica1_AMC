@@ -247,7 +247,6 @@ public class Mostrar {
         while (talla <= 5000) {
             puntos.clear();
             p.rellenarPuntos(puntos, talla, peorcaso);
-
             Tejecucion1 = CompararStrats(puntos, 1);
             lec.EscribirDat(1, talla, (long) (Tejecucion1 / 1000000.0), a.getCont(), true);
             Tejecucion2 = CompararStrats(puntos, 2);

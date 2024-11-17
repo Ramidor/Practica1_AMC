@@ -359,7 +359,7 @@ public class Algoritmos {
         int num, den;
         double x, y, aux1;
         Random r = new Random(System.currentTimeMillis());
-        if (mismax) { //PEOR CASO
+        if (mismax) {
             for (int i = 0; i < n; i++) {
                 aux1 = r.nextDouble(7, 1007);
                 y = aux1 / ((double) i + 1 + i * 0.100); //aux2; //+(i/3.0);
@@ -369,7 +369,7 @@ public class Algoritmos {
                 x = 1;
                 p.add(new Punto(i + 1, x, y));
             }
-        } else { //CASO MEDIO
+        } else { 
             for (int i = 0; i < n; i++) {
                 num = r.nextInt(1, 4000); //genera un número aleatorio entre 1 y 4000
                 den = r.nextInt(17) + 7; //genera un aleatorio entre 7 y 17

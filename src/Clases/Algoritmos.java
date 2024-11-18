@@ -186,8 +186,7 @@ public class Algoritmos {
                 op += 5;
                 if (distancia < Dmin) {
                     Dmin = distancia;
-                    rec = new PuntosMin(puntosEnRango.get(i),
-                            puntosEnRango.get(j));
+                    rec = new PuntosMin(puntosEnRango.get(i), puntosEnRango.get(j));
                     op += 5;
                 }
                 op += 6;

@@ -218,7 +218,7 @@ public class Mostrar {
             long tiempoInicio2 = System.nanoTime();
             CompararStrats(puntos, est2);
             long tiempoFin2 = System.nanoTime();
-            long tiempoEjecucion2 = (tiempoFin2 - tiempoInicio2); // Convertir a ms
+            long tiempoEjecucion2 = (long)(tiempoFin2 - tiempoInicio2); // Convertir a ms
             int distanciasCalculadas2 = a2.getCont();
 
             // Agregar datos a la tabla
